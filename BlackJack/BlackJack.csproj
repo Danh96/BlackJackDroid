@@ -52,6 +52,7 @@
     <Compile Include="CardSuit.cs" />
     <Compile Include="PlayingCardDeck.cs" />
     <Compile Include="GameActivity.cs" />
+    <Compile Include="CardView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -70,8 +71,8 @@
     <AndroidResource Include="Resources\drawable\Logo.png" />
     <AndroidResource Include="Resources\drawable\Background.jpg" />
     <AndroidResource Include="Resources\drawable\StartButton.xml" />
-    <AndroidResource Include="Resources\layout\CardView.xml" />
-    <AndroidResource Include="Resources\drawable\CardTemplate.xml" />
+    <AndroidResource Include="Resources\layout\CardTemplate.xml" />
+    <AndroidResource Include="Resources\drawable\CardBackground.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

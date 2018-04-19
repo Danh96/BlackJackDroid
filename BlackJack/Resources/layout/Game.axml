@@ -5,6 +5,7 @@
     android:orientation="vertical"
     android:background="@drawable/background">
     <LinearLayout
+        android:id="@+id/ScoreBar"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -12,21 +13,132 @@
         android:layout_alignParentTop="true"
         android:gravity="center"
         android:paddingTop="10dp"
-        android:paddingStart="20dp"
         android:paddingBottom="10dp"
-        android:paddingEnd="20dp">
+        android:paddingStart="20dp">
         <TextView
+            android:id="@+id/Score"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="#ffffff"
-            android:text="Score: " />
+            android:text="Score: 0" />
         <TextView
+            android:id="@+id/HandTotal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="#ffffff"
-            android:text="Hand Total: " />
+            android:text="Hand Total: 0" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/DealersHandText"
+        android:layout_below="@id/ScoreBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="10dp"
+        android:textColor="#ffffff"
+        android:text="Dealers Hand: " />
+    <LinearLayout
+        android:id="@+id/DealersHand"
+        android:layout_below="@id/DealersHandText"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center">
+        <BlackJack.CardView
+            android:id="@+id/DealersFirstCard"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1" />
+        <BlackJack.CardView
+            android:id="@+id/DealersSecondCard"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1" />
+        <BlackJack.CardView
+            android:id="@+id/DealersThirdCard"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1" />
+        <BlackJack.CardView
+            android:id="@+id/DealersFourthCard"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1" />
+        <BlackJack.CardView
+            android:id="@+id/DealersFifthCard"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/ConvoText"
+        android:layout_below="@id/DealersHand"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:text="Convo Text" />
+    <TextView
+        android:id="@+id/PlayersHandText"
+        android:layout_below="@id/ConvoText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:paddingLeft="10dp"
+        android:textColor="#ffffff"
+        android:text="Your Hand: " />
+    <LinearLayout
+        android:id="@+id/PlayersHand"
+        android:layout_below="@id/PlayersHandText"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center">
+        <BlackJack.CardView
+            android:id="@+id/PlayersFirstCard"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1" />
+        <BlackJack.CardView
+            android:id="@+id/PlayersSecondCard"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1" />
+        <BlackJack.CardView
+            android:id="@+id/PlayersThirdCard"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1" />
+        <BlackJack.CardView
+            android:id="@+id/PlayersFourthCard"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1" />
+        <BlackJack.CardView
+            android:id="@+id/PlayersFifthCard"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_weight="1" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/bottom_panel"
@@ -38,6 +150,7 @@
         android:paddingBottom="10dp"
         android:paddingEnd="20dp">
         <Button
+            android:id="@+id/ButtonStick"
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="wrap_content"
@@ -48,6 +161,7 @@
             android:layout_height="50dp"
             android:layout_weight="1" />
         <Button
+            android:id="@+id/ButtonHit"
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="wrap_content"
