@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -21,14 +22,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="#ffffff"
-            android:text="Score: 0" />
+            tools:text="Score: 0" />
         <TextView
             android:id="@+id/HandTotal"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="#ffffff"
-            android:text="Hand Total: 0" />
+            tools:text="Hand Total: 0" />
     </LinearLayout>
     <TextView
         android:id="@+id/DealersHandText"
@@ -89,7 +90,7 @@
         android:textStyle="bold"
         android:gravity="center"
         android:textColor="#ffffff"
-        android:text="Convo Text" />
+        tools:text="Convo Text" />
     <TextView
         android:id="@+id/PlayersHandText"
         android:layout_below="@id/ConvoText"

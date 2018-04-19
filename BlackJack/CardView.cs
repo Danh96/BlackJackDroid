@@ -7,6 +7,10 @@ namespace BlackJack
 {
     public class CardView : LinearLayout
     {
+        TextView topLeftChar;
+        TextView bottomRightChar;
+        TextView centreSuitChar;
+
         public CardView(Context context) :
             base(context)
         {
@@ -28,6 +32,10 @@ namespace BlackJack
         {
             LayoutInflater inflater = LayoutInflater.FromContext(context);
             inflater.Inflate(Resource.Layout.CardTemplate, this);
+
+            topLeftChar = FindViewById<TextView>(Resource.Id.TopLeftChar);
+            bottomRightChar = FindViewById<TextView>(Resource.Id.BottomRightChar);
+            centreSuitChar = FindViewById<TextView>(Resource.Id.CentreSuitChar);
         }
     }
 }

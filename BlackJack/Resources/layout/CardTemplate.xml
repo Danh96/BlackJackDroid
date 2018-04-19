@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="60dp"
     android:layout_height="100dp"
     android:background="@drawable/CardBackground"
     android:orientation="vertical">
     <TextView
+        android:id="@+id/TopLeftChar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="left|top"
         android:paddingLeft="8dp"
         android:paddingTop="6dp"
-        android:text="A"
+        tools:text="A"
         android:textColor="#000000"
         android:textSize="14dp" />
     <TextView
+        android:id="@+id/CentreSuitChar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="\u2663"
+        tools:text="\u2663"
         android:textColor="#000000"
         android:textSize="14dp" />
     <TextView
+        android:id="@+id/BottomRightChar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="right|bottom"
         android:paddingBottom="6dp"
         android:paddingRight="8dp"
-        android:text="A"
+        tools:text="A"
         android:textColor="#000000"
         android:textSize="14dp" />
 </LinearLayout>
