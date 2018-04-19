@@ -53,6 +53,9 @@
     <Compile Include="PlayingCardDeck.cs" />
     <Compile Include="GameActivity.cs" />
     <Compile Include="CardView.cs" />
+    <Compile Include="DealerEmoji.Designer.cs">
+      <DependentUpon>DealerEmoji.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -76,6 +79,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DealerEmoji.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>DealerEmoji.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

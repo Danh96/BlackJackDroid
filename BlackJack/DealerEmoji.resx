@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+    <data name="StartFace">
+        <value>(ง •̀_•́)ง  ผ(•̀_•́ผ)</value>
+    </data>
+    <data name="AngryFace">
+        <value>(╬ ಠ益ಠ)</value>
+    </data>
+    <data name="LooseFace">
+        <value>༼ ༎ຶ ෴   ༎ຶ༽</value>
+    </data>
+    <data name="HappyFace">
+        <value>(•̀ᴗ•́)و</value>
+    </data>
+    <data name="WinFace">
+        <value>ヽ(´ー｀)ノ</value>
+    </data>
+    <data name="DealingFace">
+        <value>(⌐■_■)</value>
+    </data>
+    <data name="DislikeFace">
+        <value>( ಠ ʖ̯ ಠ)</value>
+    </data>
+    <data name="GoFace">
+        <value>ᕦ(ò_óˇ)ᕤ</value>
+    </data>
+    <data name="WhosWonFace">
+        <value>（^_^)</value>
+    </data>
+    <data name="PlayerBustFace">
+        <value>°‿‿°</value>
+    </data>
+    <data name="NextRoundFace">
+        <value>ლ (｀ー´ლ )</value>
+    </data>
+    <data name="BothBustFace">
+        <value>{o.O}</value>
+    </data>
+</root>
