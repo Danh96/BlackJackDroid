@@ -2,6 +2,7 @@
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using DeckOfCards;
 
 namespace BlackJack
 {
@@ -36,6 +37,39 @@ namespace BlackJack
             topLeftChar = FindViewById<TextView>(Resource.Id.TopLeftChar);
             bottomRightChar = FindViewById<TextView>(Resource.Id.BottomRightChar);
             centreSuitChar = FindViewById<TextView>(Resource.Id.CentreSuitChar);
+        }
+
+        public void SetCardValues(Card card)
+        {
+            topLeftChar.Text = card.Value.ToString();
+            bottomRightChar.Text = card.Value.ToString();
+            centreSuitChar.Text = GetcardSuit(card);
+        }
+
+        private string GetcardSuit(Card card)
+        {
+            char suitIcon;
+
+            switch (card.Suit)
+            {
+                case CardSuit.Clubs:
+                    suitIcon = '\u2663';
+                    break;
+                case CardSuit.Spades:
+                    suitIcon = '\u2660';
+                    break;
+                case CardSuit.Diamonds:
+                    suitIcon = '\u2666';
+                    break;
+                case CardSuit.Hearts:
+                    suitIcon = '\u2665';
+                    break;
+                default:
+                    suitIcon = '?';
+                    break;
+            }
+
+            return suitIcon.ToString();
         }
     }
 }

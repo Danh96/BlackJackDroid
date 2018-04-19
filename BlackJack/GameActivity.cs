@@ -20,7 +20,8 @@ namespace BlackJack
         private bool PlayersTurn = true;
         private bool runMatch = true;
 
-        TextView score;
+        TextView playerGameScore;
+        TextView dealerGameScore;
         TextView handTotal;
         TextView convoText;
 
@@ -42,7 +43,8 @@ namespace BlackJack
 
             SetContentView(Resource.Layout.Game);
 
-            score = FindViewById<TextView>(Resource.Id.Score);
+            playerGameScore = FindViewById<TextView>(Resource.Id.PlayerGameScore);
+            dealerGameScore = FindViewById<TextView>(Resource.Id.DealerGameScore);
             handTotal = FindViewById<TextView>(Resource.Id.HandTotal);
             convoText = FindViewById<TextView>(Resource.Id.ConvoText);
 
@@ -70,11 +72,9 @@ namespace BlackJack
         private void HitButton_Click(object sender, EventArgs e)
         {
             PlayersHand.Add(Deck.RemoveTopCard());
-            //TODO implement a way to print card values
-            //PrintHand(PlayersHand);
+            PrintHand(PlayersHand);
             PlayersHandTotal = UpdateScore(PlayersHand);
-            //TODO implement a way to update the players score in the score bar
-            //PrintPlayerScore();
+            CheckIfBust();
         }
 
         private void StickButton_Click(object sender, EventArgs e)
@@ -121,14 +121,14 @@ namespace BlackJack
             DealerHand.Add(Deck.RemoveTopCard());
 
             DealersHandTotal = UpdateScore(DealerHand);
-
-            //TODO implement a way to print card values
-            //PrintHand(PlayersHand);
+            PrintHand(PlayersHand);
 
             PlayersHandTotal = UpdateScore(PlayersHand);
+        }
 
-            //TODO implement a way to update the players score in the score bar
-            //PrintPlayerScore();
+        private void PrintHand(List<Card> hand)
+        {
+            
         }
 
         private int UpdateScore(List<Card> hand)
@@ -202,6 +202,7 @@ namespace BlackJack
             if (PlayersHandTotal > 21)
             {
                 PlayersHandTotal = -1;
+                PlayersTurn = false;
             }
 
             if (DealersHandTotal > 21)

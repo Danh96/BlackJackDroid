@@ -14,17 +14,26 @@
         android:layout_alignParentTop="true"
         android:gravity="center"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:paddingStart="20dp">
+        android:paddingBottom="10dp">
         <TextView
-            android:id="@+id/Score"
+            android:id="@+id/PlayerGameScore"
+            android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="#ffffff"
-            tools:text="Score: 0" />
+            tools:text="Your Score: 0" />
+        <TextView
+            android:id="@+id/DealerGameScore"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="#ffffff"
+            tools:text="Dealers Score: 0" />
         <TextView
             android:id="@+id/HandTotal"
+            android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
