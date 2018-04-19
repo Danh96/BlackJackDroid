@@ -17,6 +17,8 @@ namespace BlackJack
         private int PlayersHandTotal;
         private int DealerGameScore;
         private int PlayerGameScore;
+        private bool PlayersTurn = true;
+        private bool runMatch = true;
 
         TextView score;
         TextView handTotal;
@@ -61,6 +63,8 @@ namespace BlackJack
 
             buttonStick.Click += StickButton_Click;
             buttonHit.Click += HitButton_Click;
+
+            //GameStart();
         }
 
         private void HitButton_Click(object sender, EventArgs e)
@@ -75,7 +79,28 @@ namespace BlackJack
 
         private void StickButton_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            PlayersTurn = false;
+        }
+
+        private void GameStart()
+        {
+            while (runMatch == true)
+            {
+                NewGame();
+
+                while (PlayersTurn == true)
+                {
+
+                }
+
+                DealersTurn();
+                UpdateGameScore();
+
+                if (PlayerGameScore == 0 || DealerGameScore == 0)
+                {
+                    runMatch = false;
+                }
+            }
         }
 
         private void NewGame()
@@ -182,6 +207,25 @@ namespace BlackJack
             if (DealersHandTotal > 21)
             {
                 DealersHandTotal = -1;
+            }
+        }
+
+        private void UpdateGameScore()
+        {
+            var PlayersHandFinalTotal = PlayersHandTotal == -1 ? "Bust!" : PlayersHandTotal.ToString();
+            var DealersHandFinalTotal = DealersHandTotal == -1 ? "Bust!" : DealersHandTotal.ToString();
+
+            if (PlayersHandTotal > DealersHandTotal)
+            {
+                PlayerGameScore++;
+            }
+            else if (PlayersHandTotal < DealersHandTotal)
+            {
+                DealerGameScore++;
+            }
+            else if (PlayersHandTotal == DealersHandTotal)
+            {
+                //Draw
             }
         }
     }
