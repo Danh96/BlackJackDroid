@@ -3,10 +3,11 @@ using Android.Widget;
 using Android.OS;
 using System;
 using Android.Content;
+using Android.Content.PM;
 
 namespace BlackJack
 {
-    [Activity(Label = "Black Jack", MainLauncher = true, Icon = "@drawable/Logo", Theme = "@android:style/Theme.Holo.NoActionBar.Fullscreen")]
+    [Activity(Label = "Black Jack", MainLauncher = true, Icon = "@drawable/Logo", Theme = "@android:style/Theme.Holo.NoActionBar.Fullscreen", ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)

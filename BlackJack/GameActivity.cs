@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Android.App;
+using Android.Content.PM;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -10,7 +11,7 @@ using DeckOfCards;
 
 namespace BlackJack
 {
-    [Activity(Label = "Game", Theme = "@android:style/Theme.Holo.NoActionBar.Fullscreen")]
+    [Activity(Label = "Game", Theme = "@android:style/Theme.Holo.NoActionBar.Fullscreen", ScreenOrientation = ScreenOrientation.Portrait)]
     public class GameActivity : Activity
     {
         private PlayingCardDeck Deck;
@@ -79,6 +80,7 @@ namespace BlackJack
             PrintPlayerHand(PlayersHand);
             PlayersHandTotal = UpdateScore(PlayersHand);
             SetHandTotal(PlayersHandTotal);
+            //TODO Fix this mess.
             CheckIfBust();
         }
 
@@ -86,6 +88,7 @@ namespace BlackJack
         {
             buttonHit.Enabled = false;
             buttonStick.Enabled = false;
+            //TODO Fix this mess.
             DealersTurn();
         }
 
