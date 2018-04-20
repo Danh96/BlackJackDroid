@@ -24,7 +24,8 @@ namespace BlackJack
 
         private TextView playerGameScoreText;
         private TextView dealerGameScoreText;
-        private TextView handTotal;
+        private TextView playersHandText;
+        private TextView dealersHandText;
         private TextView convoText;
 
         private Button buttonStick;
@@ -50,7 +51,8 @@ namespace BlackJack
 
             playerGameScoreText = FindViewById<TextView>(Resource.Id.PlayerGameScore);
             dealerGameScoreText = FindViewById<TextView>(Resource.Id.DealerGameScore);
-            handTotal = FindViewById<TextView>(Resource.Id.HandTotal);
+            playersHandText = FindViewById<TextView>(Resource.Id.PlayersHandText);
+            dealersHandText = FindViewById<TextView>(Resource.Id.DealersHandText);
             convoText = FindViewById<TextView>(Resource.Id.ConvoText);
 
             dealersFirstCard = FindViewById<CardView>(Resource.Id.DealersFirstCard);
@@ -79,7 +81,8 @@ namespace BlackJack
             PlayersHand.Add(Deck.RemoveTopCard());
             PrintPlayerHand(PlayersHand);
             PlayersHandTotal = UpdateScore(PlayersHand);
-            SetHandTotal(PlayersHandTotal);
+            playersHandText.Text = "Your hand total: " + PlayersHandTotal.ToString();
+
             //TODO Fix this mess.
             CheckIfBust();
         }
@@ -88,13 +91,9 @@ namespace BlackJack
         {
             buttonHit.Enabled = false;
             buttonStick.Enabled = false;
+
             //TODO Fix this mess.
             DealersTurn();
-        }
-
-        private void SetHandTotal(int total)
-        {
-            handTotal.Text = "Hand total: " + total.ToString();
         }
 
         private void GameStart()
@@ -132,12 +131,12 @@ namespace BlackJack
             PlayersHand.Add(Deck.RemoveTopCard());
             DealerHand.Add(Deck.RemoveTopCard());
 
-            DealersHandTotal = UpdateScore(DealerHand);
+            dealersHandText.Text = "Dealers hand total: " + DealersHandTotal;
 
             PrintPlayerHand(PlayersHand);
 
             PlayersHandTotal = UpdateScore(PlayersHand);
-            SetHandTotal(PlayersHandTotal);
+            playersHandText.Text = "Your hand total: " + PlayersHandTotal.ToString();
 
             convoText.Text = "Your turn";
         }
@@ -263,9 +262,12 @@ namespace BlackJack
         {
             bool dealersTurn = true;
 
-            PrintDealersHand(DealerHand);
             convoText.Text = "Dealers turn";
             await Task.Delay(1000);
+
+            PrintDealersHand(DealerHand);
+            DealersHandTotal = UpdateScore(DealerHand);
+            dealersHandText.Text = "Dealers hand total: " + DealersHandTotal;
 
             while (dealersTurn)
             {
@@ -275,8 +277,10 @@ namespace BlackJack
                 }
                 else if (DealersHandTotal <= 16)
                 {
+                    await Task.Delay(1000);
                     DealerHand.Add(Deck.RemoveTopCard());
                     PrintDealersHand(DealerHand);
+                    dealersHandText.Text = "Dealers hand total: " + DealersHandTotal;
                     DealersHandTotal = UpdateScore(DealerHand);
                     await CheckIfBust();
                 }
@@ -296,13 +300,14 @@ namespace BlackJack
             if (PlayersHandTotal > 21)
             {
                 PlayersHandTotal = -1;
-                handTotal.Text = "Hand total: Bust!";
+                playersHandText.Text = "Your hand total: Bust!";
                 await DealersTurn();
             }
 
             if (DealersHandTotal > 21)
             {
                 DealersHandTotal = -1;
+                dealersHandText.Text = "Dealers hand total: Bust!";
             }
         }
 

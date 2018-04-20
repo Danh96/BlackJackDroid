@@ -25,18 +25,12 @@
             tools:text="Your Score: 0" />
         <TextView
             android:id="@+id/DealerGameScore"
+            android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="#ffffff"
             tools:text="Dealer Score: 0" />
-        <TextView
-            android:id="@+id/HandTotal"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:textColor="#ffffff"
-            tools:text="Hand Total: 0" />
     </LinearLayout>
     <TextView
         android:id="@+id/DealersHandText"
@@ -46,7 +40,7 @@
         android:layout_marginTop="30dp"
         android:paddingLeft="10dp"
         android:textColor="#ffffff"
-        android:text="Dealers Hand: " />
+        tools:text="Dealers hand total: " />
     <LinearLayout
         android:id="@+id/DealersHand"
         android:layout_below="@id/DealersHandText"
@@ -107,7 +101,7 @@
         android:layout_marginTop="50dp"
         android:paddingLeft="10dp"
         android:textColor="#ffffff"
-        android:text="Your Hand: " />
+        tools:text="Your hand total: " />
     <LinearLayout
         android:id="@+id/PlayersHand"
         android:layout_below="@id/PlayersHandText"
