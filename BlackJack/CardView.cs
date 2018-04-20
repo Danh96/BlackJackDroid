@@ -41,8 +41,8 @@ namespace BlackJack
 
         public void SetCardValues(Card card)
         {
-            topLeftChar.Text = card.Value.ToString();
-            bottomRightChar.Text = card.Value.ToString();
+            topLeftChar.Text = GetCardValue(card);
+            bottomRightChar.Text = GetCardValue(card);
             centreSuitChar.Text = GetcardSuit(card);
         }
 
@@ -70,6 +70,32 @@ namespace BlackJack
             }
 
             return suitIcon.ToString();
+        }
+
+        public string GetCardValue(Card card)
+        {
+            string cardValue;
+
+            switch (card.Value)
+            {
+                case 1:
+                    cardValue = "A";
+                    break;
+                case 11:
+                    cardValue = "J";
+                    break;
+                case 12:
+                    cardValue = "Q";
+                    break;
+                case 13:
+                    cardValue = "K";
+                    break;
+                default:
+                    cardValue = card.Value.ToString();
+                    break;
+            }
+
+            return cardValue;
         }
     }
 }

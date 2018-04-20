@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Android.App;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using DeckOfCards;
 
@@ -20,22 +22,25 @@ namespace BlackJack
         private bool PlayersTurn = true;
         private bool runMatch = true;
 
-        TextView playerGameScore;
-        TextView dealerGameScore;
-        TextView handTotal;
-        TextView convoText;
+        private TextView playerGameScoreText;
+        private TextView dealerGameScoreText;
+        private TextView handTotal;
+        private TextView convoText;
 
-        CardView dealersFirstCard;
-        CardView dealersSecondCard;
-        CardView dealersThirdCard;
-        CardView dealersFourthCard;
-        CardView dealersFifthCard;
+        private Button buttonStick;
+        private Button buttonHit;
 
-        CardView playersFirstCard;
-        CardView playersSecondCard;
-        CardView playersThirdCard;
-        CardView playersFourthCard;
-        CardView playersFifthCard;
+        private CardView dealersFirstCard;
+        private CardView dealersSecondCard;
+        private CardView dealersThirdCard;
+        private CardView dealersFourthCard;
+        private CardView dealersFifthCard;
+
+        private CardView playersFirstCard;
+        private CardView playersSecondCard;
+        private CardView playersThirdCard;
+        private CardView playersFourthCard;
+        private CardView playersFifthCard;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -43,8 +48,8 @@ namespace BlackJack
 
             SetContentView(Resource.Layout.Game);
 
-            playerGameScore = FindViewById<TextView>(Resource.Id.PlayerGameScore);
-            dealerGameScore = FindViewById<TextView>(Resource.Id.DealerGameScore);
+            playerGameScoreText = FindViewById<TextView>(Resource.Id.PlayerGameScore);
+            dealerGameScoreText = FindViewById<TextView>(Resource.Id.DealerGameScore);
             handTotal = FindViewById<TextView>(Resource.Id.HandTotal);
             convoText = FindViewById<TextView>(Resource.Id.ConvoText);
 
@@ -60,47 +65,45 @@ namespace BlackJack
             playersFourthCard = FindViewById<CardView>(Resource.Id.PlayersFourthCard);
             playersFifthCard = FindViewById<CardView>(Resource.Id.PlayersFifthCard);
 
-            Button buttonStick = FindViewById<Button>(Resource.Id.ButtonStick);
-            Button buttonHit = FindViewById<Button>(Resource.Id.ButtonHit);
+            buttonStick = FindViewById<Button>(Resource.Id.ButtonStick);
+            buttonHit = FindViewById<Button>(Resource.Id.ButtonHit);
 
             buttonStick.Click += StickButton_Click;
             buttonHit.Click += HitButton_Click;
 
-            //GameStart();
+            GameStart();
         }
 
         private void HitButton_Click(object sender, EventArgs e)
         {
             PlayersHand.Add(Deck.RemoveTopCard());
-            PrintHand(PlayersHand);
+            PrintPlayerHand(PlayersHand);
             PlayersHandTotal = UpdateScore(PlayersHand);
+            SetHandTotal(PlayersHandTotal);
             CheckIfBust();
         }
 
         private void StickButton_Click(object sender, EventArgs e)
         {
             PlayersTurn = false;
+            buttonHit.Enabled = false;
+            buttonStick.Enabled = false;
+            DealersTurn();
         }
 
         private void GameStart()
         {
-            while (runMatch == true)
-            {
-                NewGame();
+            NewGame();
 
-                while (PlayersTurn == true)
-                {
+            //if (PlayerGameScore == 0 || DealerGameScore == 0)
+            //{
+            //    runMatch = false;
+            //}
+        }
 
-                }
-
-                DealersTurn();
-                UpdateGameScore();
-
-                if (PlayerGameScore == 0 || DealerGameScore == 0)
-                {
-                    runMatch = false;
-                }
-            }
+        private void SetHandTotal(int total)
+        {
+            handTotal.Text = "Hand total: " + total.ToString();
         }
 
         private void NewGame()
@@ -115,20 +118,111 @@ namespace BlackJack
             DealersHandTotal = 0;
             DealerHand.Clear();
 
+            PlayersTurn = true;
+
+            buttonHit.Enabled = true;
+            buttonStick.Enabled = true;
+
+            playerGameScoreText.Text = "Your score: " + PlayerGameScore.ToString();
+            dealerGameScoreText.Text = "Dealer score: " + DealerGameScore.ToString();
+
+            dealersFirstCard.Visibility = ViewStates.Invisible;
+            dealersSecondCard.Visibility = ViewStates.Invisible;
+            dealersThirdCard.Visibility = ViewStates.Invisible;
+            dealersFourthCard.Visibility = ViewStates.Invisible;
+            dealersFifthCard.Visibility = ViewStates.Invisible;
+
+            playersFirstCard.Visibility = ViewStates.Invisible;
+            playersSecondCard.Visibility = ViewStates.Invisible;
+            playersThirdCard.Visibility = ViewStates.Invisible;
+            playersFourthCard.Visibility = ViewStates.Invisible;
+            playersFifthCard.Visibility = ViewStates.Invisible;
+
             PlayersHand.Add(Deck.RemoveTopCard());
             DealerHand.Add(Deck.RemoveTopCard());
             PlayersHand.Add(Deck.RemoveTopCard());
             DealerHand.Add(Deck.RemoveTopCard());
 
             DealersHandTotal = UpdateScore(DealerHand);
-            PrintHand(PlayersHand);
+
+            PrintPlayerHand(PlayersHand);
 
             PlayersHandTotal = UpdateScore(PlayersHand);
+            SetHandTotal(PlayersHandTotal);
         }
 
-        private void PrintHand(List<Card> hand)
+        private void PrintPlayerHand(List<Card> hand)
         {
-            
+            var count = hand.Count();
+
+            foreach (Card card in hand)
+            {
+                switch (count)
+                {
+                    case 1:
+                        playersFirstCard.SetCardValues(PlayersHand[count - 1]);
+                        playersFirstCard.Visibility = ViewStates.Visible;
+                        count--;
+                        break;
+                    case 2:
+                        playersSecondCard.SetCardValues(PlayersHand[count - 1]);
+                        playersSecondCard.Visibility = ViewStates.Visible;
+                        count--;
+                        break;
+                    case 3:
+                        playersThirdCard.SetCardValues(PlayersHand[count - 1]);
+                        playersThirdCard.Visibility = ViewStates.Visible;
+                        count--;
+                        break;
+                    case 4:
+                        playersFourthCard.SetCardValues(PlayersHand[count - 1]);
+                        playersFourthCard.Visibility = ViewStates.Visible;
+                        count--;
+                        break;
+                    case 5:
+                        playersFifthCard.SetCardValues(PlayersHand[count - 1]);
+                        playersFifthCard.Visibility = ViewStates.Visible;
+                        count--;
+                        break;
+                }
+            }
+        }
+
+        private void PrintDealersHand(List<Card> hand)
+        {
+            var count = hand.Count();
+
+            foreach (Card card in hand)
+            {
+                switch (count)
+                {
+                    case 1:
+                        dealersFirstCard.SetCardValues(DealerHand[count - 1]);
+                        dealersFirstCard.Visibility = ViewStates.Visible;
+                        count--;
+                        break;
+                    case 2:
+                        dealersSecondCard.SetCardValues(DealerHand[count - 1]);
+                        dealersSecondCard.Visibility = ViewStates.Visible;
+                        count--;
+                        break;
+                    case 3:
+                        dealersThirdCard.SetCardValues(DealerHand[count - 1]);
+                        dealersThirdCard.Visibility = ViewStates.Visible;
+                        count--;
+                        break;
+                    case 4:
+                        dealersFourthCard.SetCardValues(DealerHand[count - 1]);
+                        dealersFourthCard.Visibility = ViewStates.Visible;
+                        count--;
+                        break;
+                    case 5:
+                        dealersFifthCard.SetCardValues(DealerHand[count - 1]);
+                        dealersFifthCard.Visibility = ViewStates.Visible;
+                        count--;
+                        break;
+                }
+            }
         }
 
         private int UpdateScore(List<Card> hand)
@@ -161,7 +255,7 @@ namespace BlackJack
 
             foreach (Card c in aces)
             {
-                if (total + 11 > 21)
+                if (HandTotal + 11 > 21)
                 {
                     HandTotal++;
                 }
@@ -178,6 +272,8 @@ namespace BlackJack
         {
             bool dealersTurn = true;
 
+            PrintDealersHand(DealerHand);
+
             while (dealersTurn)
             {
                 if (DealersHandTotal > PlayersHandTotal || DealersHandTotal == -1)
@@ -187,6 +283,7 @@ namespace BlackJack
                 else if (DealersHandTotal <= 16)
                 {
                     DealerHand.Add(Deck.RemoveTopCard());
+                    PrintDealersHand(DealerHand);
                     DealersHandTotal = UpdateScore(DealerHand);
                     CheckIfBust();
                 }
@@ -195,6 +292,8 @@ namespace BlackJack
                     dealersTurn = false;
                 }
             }
+
+            UpdateGameScore();
         }
 
         private void CheckIfBust()
@@ -203,6 +302,7 @@ namespace BlackJack
             {
                 PlayersHandTotal = -1;
                 PlayersTurn = false;
+                DealersTurn();
             }
 
             if (DealersHandTotal > 21)
@@ -213,16 +313,18 @@ namespace BlackJack
 
         private void UpdateGameScore()
         {
-            var PlayersHandFinalTotal = PlayersHandTotal == -1 ? "Bust!" : PlayersHandTotal.ToString();
-            var DealersHandFinalTotal = DealersHandTotal == -1 ? "Bust!" : DealersHandTotal.ToString();
+            //var PlayersHandFinalTotal = PlayersHandTotal == -1 ? "Bust!" : PlayersHandTotal.ToString();
+            //var DealersHandFinalTotal = DealersHandTotal == -1 ? "Bust!" : DealersHandTotal.ToString();
 
             if (PlayersHandTotal > DealersHandTotal)
             {
                 PlayerGameScore++;
+                playerGameScoreText.Text = "Your score: " + PlayerGameScore.ToString();
             }
             else if (PlayersHandTotal < DealersHandTotal)
             {
                 DealerGameScore++;
+                dealerGameScoreText.Text = "Dealer score: " + DealerGameScore.ToString();
             }
             else if (PlayersHandTotal == DealersHandTotal)
             {

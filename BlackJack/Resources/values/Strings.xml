@@ -1,8 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">BlackJack</string>
-    <string name="ClubsSymbol">\u2663</string>
-    <string name="HeartsSymbol">\u2665</string>
-    <string name="SpadesSymbol">\u2660</string>
-    <string name="DiamondsSymbol">\u2666</string>
 </resources>

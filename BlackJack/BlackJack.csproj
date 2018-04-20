@@ -73,9 +73,11 @@
     <AndroidResource Include="Resources\layout\Game.axml" />
     <AndroidResource Include="Resources\drawable\Logo.png" />
     <AndroidResource Include="Resources\drawable\Background.jpg" />
-    <AndroidResource Include="Resources\drawable\StartButton.xml" />
+    <AndroidResource Include="Resources\drawable\ButtonDefault.xml" />
     <AndroidResource Include="Resources\layout\CardTemplate.xml" />
     <AndroidResource Include="Resources\drawable\CardBackground.xml" />
+    <AndroidResource Include="Resources\drawable\ButtonClickedState.xml" />
+    <AndroidResource Include="Resources\drawable\ButtonClicked.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

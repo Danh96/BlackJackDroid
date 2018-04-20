@@ -25,15 +25,13 @@
             tools:text="Your Score: 0" />
         <TextView
             android:id="@+id/DealerGameScore"
-            android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="#ffffff"
-            tools:text="Dealers Score: 0" />
+            tools:text="Dealer Score: 0" />
         <TextView
             android:id="@+id/HandTotal"
-            android:gravity="center"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -165,7 +163,7 @@
             android:layout_weight="3"
             android:layout_height="wrap_content"
             android:text="Stick"
-            android:background="@drawable/startbutton" />
+            android:background="@drawable/buttonclickedstate" />
         <View
             android:layout_width="0dp"
             android:layout_height="50dp"
@@ -176,6 +174,6 @@
             android:layout_weight="3"
             android:layout_height="wrap_content"
             android:text="Hit"
-            android:background="@drawable/startbutton" />
+            android:background="@drawable/buttonclickedstate" />
     </LinearLayout>
 </RelativeLayout>

@@ -45,8 +45,6 @@ namespace DeckOfCards
 
         public void Shuffle()
         {
-            // Fisher-Yates algorithm.
-
             int x = Cards.Count;
 
             while (x > 1)

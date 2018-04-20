@@ -16,6 +16,6 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/startbutton"
+        android:background="@drawable/buttonclickedstate"
         android:text="Start Game" />
 </LinearLayout>

@@ -48,13 +48,19 @@ namespace BlackJack
 			public const int Background = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int CardBackground = 2130837505;
+			public const int ButtonClicked = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int Logo = 2130837506;
+			public const int ButtonClickedState = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int StartButton = 2130837507;
+			public const int ButtonDefault = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int CardBackground = 2130837508;
+			
+			// aapt resource value: 0x7f020005
+			public const int Logo = 2130837509;
 			
 			static Drawable()
 			{
@@ -197,18 +203,6 @@ namespace BlackJack
 		
 		public partial class String
 		{
-			
-			// aapt resource value: 0x7f050001
-			public const int ClubsSymbol = 2131034113;
-			
-			// aapt resource value: 0x7f050004
-			public const int DiamondsSymbol = 2131034116;
-			
-			// aapt resource value: 0x7f050002
-			public const int HeartsSymbol = 2131034114;
-			
-			// aapt resource value: 0x7f050003
-			public const int SpadesSymbol = 2131034115;
 			
 			// aapt resource value: 0x7f050000
 			public const int app_name = 2131034112;
