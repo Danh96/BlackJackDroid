@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Android.App;
 using Android.OS;
 using Android.Views;
@@ -134,6 +135,8 @@ namespace BlackJack
 
             PlayersHandTotal = UpdateScore(PlayersHand);
             SetHandTotal(PlayersHandTotal);
+
+            convoText.Text = "Your turn";
         }
 
         private void PrintPlayerHand(List<Card> hand)
@@ -253,11 +256,13 @@ namespace BlackJack
             return HandTotal;
         }
 
-        private void DealersTurn()
+        private async Task DealersTurn()
         {
             bool dealersTurn = true;
 
             PrintDealersHand(DealerHand);
+            convoText.Text = "Dealers turn";
+            await Task.Delay(1000);
 
             while (dealersTurn)
             {
@@ -270,24 +275,26 @@ namespace BlackJack
                     DealerHand.Add(Deck.RemoveTopCard());
                     PrintDealersHand(DealerHand);
                     DealersHandTotal = UpdateScore(DealerHand);
-                    CheckIfBust();
+                    await CheckIfBust();
                 }
                 else
                 {
                     dealersTurn = false;
                 }
+
+                await Task.Delay(1000);
             }
 
-            UpdateGameScore();
+            await UpdateGameScore();
         }
 
-        private void CheckIfBust()
+        private async Task CheckIfBust()
         {
             if (PlayersHandTotal > 21)
             {
                 PlayersHandTotal = -1;
-                handTotal.Text = "Hand total: Bust";
-                DealersTurn();
+                handTotal.Text = "Hand total: Bust!";
+                await DealersTurn();
             }
 
             if (DealersHandTotal > 21)
@@ -296,34 +303,40 @@ namespace BlackJack
             }
         }
 
-        private void UpdateGameScore()
+        private async Task UpdateGameScore()
         {
             if (PlayersHandTotal > DealersHandTotal)
             {
                 PlayerGameScore++;
                 playerGameScoreText.Text = "Your score: " + PlayerGameScore.ToString();
+                convoText.Text = "Player won this hand.";
             }
             else if (PlayersHandTotal < DealersHandTotal)
             {
                 DealerGameScore++;
                 dealerGameScoreText.Text = "Dealer score: " + DealerGameScore.ToString();
+                convoText.Text = "Dealer won this hand.";
             }
             else if (PlayersHandTotal == DealersHandTotal)
             {
-                //Draw
+                DealerGameScore++;
+                convoText.Text = "Draw, points go to dealer.";
             }
 
-            CheckIfGameContinues();
+            await Task.Delay(1000);
+            await CheckIfGameContinues();
         }
 
-        private void CheckIfGameContinues()
+        private async Task CheckIfGameContinues()
         {
-            if (PlayerGameScore >= 10 || DealerGameScore >= 10)
+            if (PlayerGameScore >= 3 || DealerGameScore >= 3)
             {
                 convoText.Text = "Game over!";
             }
             else
             {
+                await Task.Delay(1000);
+                convoText.Text = "Next Round!";
                 GameStart();
             }
         }
