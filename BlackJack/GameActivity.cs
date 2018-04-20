@@ -19,8 +19,6 @@ namespace BlackJack
         private int PlayersHandTotal;
         private int DealerGameScore;
         private int PlayerGameScore;
-        private bool PlayersTurn = true;
-        private bool runMatch = true;
 
         private TextView playerGameScoreText;
         private TextView dealerGameScoreText;
@@ -85,20 +83,9 @@ namespace BlackJack
 
         private void StickButton_Click(object sender, EventArgs e)
         {
-            PlayersTurn = false;
             buttonHit.Enabled = false;
             buttonStick.Enabled = false;
             DealersTurn();
-        }
-
-        private void GameStart()
-        {
-            NewGame();
-
-            //if (PlayerGameScore == 0 || DealerGameScore == 0)
-            //{
-            //    runMatch = false;
-            //}
         }
 
         private void SetHandTotal(int total)
@@ -106,7 +93,7 @@ namespace BlackJack
             handTotal.Text = "Hand total: " + total.ToString();
         }
 
-        private void NewGame()
+        private void GameStart()
         {
             Deck = new PlayingCardDeck();
 
@@ -117,8 +104,6 @@ namespace BlackJack
 
             DealersHandTotal = 0;
             DealerHand.Clear();
-
-            PlayersTurn = true;
 
             buttonHit.Enabled = true;
             buttonStick.Enabled = true;
@@ -301,7 +286,7 @@ namespace BlackJack
             if (PlayersHandTotal > 21)
             {
                 PlayersHandTotal = -1;
-                PlayersTurn = false;
+                handTotal.Text = "Hand total: Bust";
                 DealersTurn();
             }
 
@@ -313,9 +298,6 @@ namespace BlackJack
 
         private void UpdateGameScore()
         {
-            //var PlayersHandFinalTotal = PlayersHandTotal == -1 ? "Bust!" : PlayersHandTotal.ToString();
-            //var DealersHandFinalTotal = DealersHandTotal == -1 ? "Bust!" : DealersHandTotal.ToString();
-
             if (PlayersHandTotal > DealersHandTotal)
             {
                 PlayerGameScore++;
@@ -329,6 +311,20 @@ namespace BlackJack
             else if (PlayersHandTotal == DealersHandTotal)
             {
                 //Draw
+            }
+
+            CheckIfGameContinues();
+        }
+
+        private void CheckIfGameContinues()
+        {
+            if (PlayerGameScore >= 10 || DealerGameScore >= 10)
+            {
+                convoText.Text = "Game over!";
+            }
+            else
+            {
+                GameStart();
             }
         }
     }
