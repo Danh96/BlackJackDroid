@@ -53,6 +53,7 @@
     <Compile Include="PlayingCardDeck.cs" />
     <Compile Include="GameActivity.cs" />
     <Compile Include="CardView.cs" />
+    <Compile Include="EndGameActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -75,6 +76,10 @@
     <AndroidResource Include="Resources\drawable\CardBackground.xml" />
     <AndroidResource Include="Resources\drawable\ButtonClickedState.xml" />
     <AndroidResource Include="Resources\drawable\ButtonClicked.xml" />
+    <AndroidResource Include="Resources\layout\EndGame.axml" />
+    <AndroidResource Include="Resources\drawable\GameOverIcon.png" />
+    <AndroidResource Include="Resources\drawable\AppLogo.png" />
+    <AndroidResource Include="Resources\drawable\PlayingcardBack.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

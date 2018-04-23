@@ -1,21 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background">
     <ImageView
-        android:src="@drawable/logo"
-        android:layout_height="200dp"
-        android:layout_width="400dp"
+        android:src="@drawable/GameOverIcon"
+        android:layout_height="100dp"
+        android:layout_width="200dp"
         android:layout_marginTop="140dp"
         android:layout_marginBottom="40dp"
         android:layout_gravity="center" />
+    <TextView
+        android:id="@+id/WinnerText"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:text="Winner"
+        android:layout_gravity="center"
+        android:layout_marginBottom="60dp"
+        android:textStyle="bold"
+        android:textColor="#ffffff"
+        android:textSize="30dp" />
     <Button
-        android:id="@+id/ButtonGame"
+        android:id="@+id/ButtonHome"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/buttonclickedstate"
-        android:text="Start Game" />
+        android:text="Home" />
 </LinearLayout>

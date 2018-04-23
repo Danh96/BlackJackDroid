@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.OS;
 using Android.Views;
@@ -114,14 +115,10 @@ namespace BlackJack
             playerGameScoreText.Text = "Your score: " + PlayerGameScore.ToString();
             dealerGameScoreText.Text = "Dealer score: " + DealerGameScore.ToString();
 
-            dealersFirstCard.Visibility = ViewStates.Invisible;
-            dealersSecondCard.Visibility = ViewStates.Invisible;
             dealersThirdCard.Visibility = ViewStates.Invisible;
             dealersFourthCard.Visibility = ViewStates.Invisible;
             dealersFifthCard.Visibility = ViewStates.Invisible;
 
-            playersFirstCard.Visibility = ViewStates.Invisible;
-            playersSecondCard.Visibility = ViewStates.Invisible;
             playersThirdCard.Visibility = ViewStates.Invisible;
             playersFourthCard.Visibility = ViewStates.Invisible;
             playersFifthCard.Visibility = ViewStates.Invisible;
@@ -301,6 +298,8 @@ namespace BlackJack
             {
                 PlayersHandTotal = -1;
                 playersHandText.Text = "Your hand total: Bust!";
+                buttonHit.Enabled = false;
+                buttonStick.Enabled = false;
                 await DealersTurn();
             }
 
@@ -337,9 +336,13 @@ namespace BlackJack
 
         private async Task CheckIfGameContinues()
         {
-            if (PlayerGameScore >= 3 || DealerGameScore >= 3)
+            if (PlayerGameScore == 3 || DealerGameScore == 3)
             {
-                convoText.Text = "Game over!";
+                Intent intent = new Intent(this, typeof(EndGameActivity));
+                intent.PutExtra("playerGameScore", PlayerGameScore);
+                intent.PutExtra("dealerGameScore", DealerGameScore);
+                StartActivity(intent);
+                Finish();
             }
             else
             {

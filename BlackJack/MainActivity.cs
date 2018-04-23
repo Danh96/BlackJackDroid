@@ -7,7 +7,7 @@ using Android.Content.PM;
 
 namespace BlackJack
 {
-    [Activity(Label = "Black Jack", MainLauncher = true, Icon = "@drawable/Logo", Theme = "@android:style/Theme.Holo.NoActionBar.Fullscreen", ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(Label = "Black Jack", MainLauncher = true, Icon = "@drawable/AppLogo", Theme = "@android:style/Theme.Holo.NoActionBar.Fullscreen", ScreenOrientation = ScreenOrientation.Portrait)]
     public class MainActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
