@@ -77,24 +77,22 @@ namespace BlackJack
             GameStart();
         }
 
-        private void HitButton_Click(object sender, EventArgs e)
+        private async void HitButton_Click(object sender, EventArgs e)
         {
             PlayersHand.Add(Deck.RemoveTopCard());
             PrintPlayerHand(PlayersHand);
             PlayersHandTotal = UpdateScore(PlayersHand);
             playersHandText.Text = "Your hand total: " + PlayersHandTotal.ToString();
 
-            //TODO Fix this mess.
-            CheckIfBust();
+            await CheckIfBust();
         }
 
-        private void StickButton_Click(object sender, EventArgs e)
+        private async void StickButton_Click(object sender, EventArgs e)
         {
             buttonHit.Enabled = false;
             buttonStick.Enabled = false;
 
-            //TODO Fix this mess.
-            DealersTurn();
+            await DealersTurn();
         }
 
         private void GameStart()
