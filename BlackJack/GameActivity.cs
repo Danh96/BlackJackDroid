@@ -74,6 +74,7 @@ namespace BlackJack
             buttonStick.Click += StickButton_Click;
             buttonHit.Click += HitButton_Click;
 
+            //TODO Only allow for 5 cards to be drawn
             GameStart();
         }
 
@@ -113,6 +114,8 @@ namespace BlackJack
             playerGameScoreText.Text = "Your score: " + PlayerGameScore.ToString();
             dealerGameScoreText.Text = "Dealer score: " + DealerGameScore.ToString();
 
+            dealersFirstCard.Visibility = ViewStates.Invisible;
+            dealersSecondCard.Visibility = ViewStates.Invisible;
             dealersThirdCard.Visibility = ViewStates.Invisible;
             dealersFourthCard.Visibility = ViewStates.Invisible;
             dealersFifthCard.Visibility = ViewStates.Invisible;
@@ -131,9 +134,9 @@ namespace BlackJack
             PrintPlayerHand(PlayersHand);
 
             PlayersHandTotal = UpdateScore(PlayersHand);
-            playersHandText.Text = "Your hand total: " + PlayersHandTotal.ToString();
+            playersHandText.Text = "Players hand total: " + PlayersHandTotal.ToString();
 
-            convoText.Text = "Your turn";
+            convoText.Text = "Players turn";
         }
 
         private void PrintPlayerHand(List<Card> hand)
@@ -314,13 +317,13 @@ namespace BlackJack
             {
                 PlayerGameScore++;
                 playerGameScoreText.Text = "Your score: " + PlayerGameScore.ToString();
-                convoText.Text = "Player won this hand.";
+                convoText.Text = "Player wins hand.";
             }
             else if (PlayersHandTotal < DealersHandTotal)
             {
                 DealerGameScore++;
                 dealerGameScoreText.Text = "Dealer score: " + DealerGameScore.ToString();
-                convoText.Text = "Dealer won this hand.";
+                convoText.Text = "Dealer wins hand.";
             }
             else if (PlayersHandTotal == DealersHandTotal)
             {

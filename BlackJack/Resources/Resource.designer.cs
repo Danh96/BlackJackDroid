@@ -63,13 +63,10 @@ namespace BlackJack
 			public const int CardBackground = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int GameOverIcon = 2130837510;
+			public const int Logo = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int Logo = 2130837511;
-			
-			// aapt resource value: 0x7f020008
-			public const int PlayingcardBack = 2130837512;
+			public const int PlayingcardBack = 2130837511;
 			
 			static Drawable()
 			{
