@@ -280,8 +280,8 @@ namespace BlackJack
                     await Task.Delay(1000);
                     DealerHand.Add(Deck.RemoveTopCard());
                     PrintDealersHand(DealerHand);
-                    dealersHandText.Text = "Dealers hand total: " + DealersHandTotal;
                     DealersHandTotal = UpdateScore(DealerHand);
+                    dealersHandText.Text = "Dealers hand total: " + DealersHandTotal;
                     await CheckIfBust();
                 }
                 else
