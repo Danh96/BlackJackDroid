@@ -22,6 +22,7 @@ namespace BlackJack
         private int PlayersHandTotal;
         private int DealerGameScore;
         private int PlayerGameScore;
+        private int MaxMatchPoint = 3;
 
         private TextView playerGameScoreText;
         private TextView dealerGameScoreText;
@@ -73,6 +74,8 @@ namespace BlackJack
 
             buttonStick.Click += StickButton_Click;
             buttonHit.Click += HitButton_Click;
+
+            SelectMatchPointsDialogPopUp();
 
             GameStart();
         }
@@ -220,6 +223,8 @@ namespace BlackJack
         {
             if (PlayersHand.Count == 5 && PlayersHandTotal != -1)
             {
+                buttonHit.Enabled = false;
+                buttonStick.Enabled = false;
                 playersHandText.Text = "Players hand total: Five cards under!";
                 PlayersHandTotal = 100;
                 await DealersTurn();
@@ -360,7 +365,7 @@ namespace BlackJack
 
         private async Task CheckIfGameContinues()
         {
-            if (PlayerGameScore == 3 || DealerGameScore == 3)
+            if (PlayerGameScore == MaxMatchPoint || DealerGameScore == MaxMatchPoint)
             {
                 Intent intent = new Intent(this, typeof(EndGameActivity));
                 intent.PutExtra("playerGameScore", PlayerGameScore);
@@ -374,6 +379,32 @@ namespace BlackJack
                 convoText.Text = "Next Round!";
                 GameStart();
             }
+        }
+
+        void SelectMatchPointsDialogPopUp()
+        {
+            var MatchPointAlert = (new AlertDialog.Builder(this)).Create();
+            MatchPointAlert.SetMessage("Please select the number of points to play for.");
+            MatchPointAlert.SetTitle("Match length selector");
+            MatchPointAlert.SetButton("10", SetMatchPointsToTen);
+            MatchPointAlert.SetButton2("3", SetMatchPointsToThree);
+            MatchPointAlert.SetButton3("5", SetMatchPointsToFive);
+            MatchPointAlert.Show();
+        }
+
+        private void SetMatchPointsToTen(object sender, DialogClickEventArgs e)
+        {
+            MaxMatchPoint = 10;
+        }
+
+        private void SetMatchPointsToFive(object sender, DialogClickEventArgs e)
+        {
+            MaxMatchPoint = 5;
+        }
+
+        private void SetMatchPointsToThree(object sender, DialogClickEventArgs e)
+        {
+            MaxMatchPoint = 3;
         }
     }
 }
