@@ -381,7 +381,7 @@ namespace BlackJack
             }
         }
 
-        void SelectMatchPointsDialogPopUp()
+        private void SelectMatchPointsDialogPopUp()
         {
             var MatchPointAlert = (new AlertDialog.Builder(this)).Create();
             MatchPointAlert.SetMessage("Please select the number of points to play for.");
