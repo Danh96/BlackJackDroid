@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LayoutCard"
     android:layout_width="60dp"
-    android:layout_height="100dp"
+    android:layout_height="90dp"
     android:background="@drawable/CardBackground"
     android:orientation="vertical">
     <TextView
@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        tools:text="\u2663"
+        tools:text="Suit"
         tools:textColor="#000000"
         android:textSize="14dp" />
     <TextView

@@ -46,7 +46,21 @@ namespace BlackJack
             topLeftChar.Text = GetCardValue(card);
             bottomRightChar.Text = GetCardValue(card);
             centreSuitChar.Text = GetcardSuit(card);
-            //cardLayout.SetBackgroundResource(Resource.Drawable.PlayingcardBack);
+        }
+
+        public void SetDealerCardFaceDown(bool faceDown = true)
+        {
+            if (faceDown == true)
+            {
+                cardLayout.SetBackgroundResource(Resource.Drawable.CardBack);
+                topLeftChar.Text = string.Empty;
+                bottomRightChar.Text = string.Empty;
+                centreSuitChar.Text = string.Empty;
+            }
+            else
+            {
+                cardLayout.SetBackgroundResource(Resource.Drawable.CardBackground);
+            }
         }
 
         private string GetcardSuit(Card card)

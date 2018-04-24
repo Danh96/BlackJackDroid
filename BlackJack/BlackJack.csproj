@@ -78,7 +78,7 @@
     <AndroidResource Include="Resources\drawable\ButtonClicked.xml" />
     <AndroidResource Include="Resources\layout\EndGame.axml" />
     <AndroidResource Include="Resources\drawable\AppLogo.png" />
-    <AndroidResource Include="Resources\drawable\PlayingcardBack.png" />
+    <AndroidResource Include="Resources\drawable\CardBack.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

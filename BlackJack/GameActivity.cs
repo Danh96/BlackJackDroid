@@ -17,7 +17,7 @@ namespace BlackJack
     {
         private PlayingCardDeck Deck;
         private List<Card> PlayersHand = new List<Card>();
-        private List<Card> DealerHand = new List<Card>();
+        private List<Card> DealersHand = new List<Card>();
         private int DealersHandTotal;
         private int PlayersHandTotal;
         private int DealerGameScore;
@@ -74,7 +74,6 @@ namespace BlackJack
             buttonStick.Click += StickButton_Click;
             buttonHit.Click += HitButton_Click;
 
-            //TODO Only allow for 5 cards to be drawn
             GameStart();
         }
 
@@ -83,9 +82,10 @@ namespace BlackJack
             PlayersHand.Add(Deck.RemoveTopCard());
             PrintPlayerHand(PlayersHand);
             PlayersHandTotal = UpdateScore(PlayersHand);
-            playersHandText.Text = "Your hand total: " + PlayersHandTotal.ToString();
+            playersHandText.Text = "Players hand total: " + PlayersHandTotal.ToString();
 
             await CheckIfBust();
+            await CheckIfPlayerHasFiveCardTrick();
         }
 
         private async void StickButton_Click(object sender, EventArgs e)
@@ -106,7 +106,7 @@ namespace BlackJack
             PlayersHand.Clear();
 
             DealersHandTotal = 0;
-            DealerHand.Clear();
+            DealersHand.Clear();
 
             buttonHit.Enabled = true;
             buttonStick.Enabled = true;
@@ -114,20 +114,21 @@ namespace BlackJack
             playerGameScoreText.Text = "Your score: " + PlayerGameScore.ToString();
             dealerGameScoreText.Text = "Dealer score: " + DealerGameScore.ToString();
 
-            dealersFirstCard.Visibility = ViewStates.Invisible;
-            dealersSecondCard.Visibility = ViewStates.Invisible;
             dealersThirdCard.Visibility = ViewStates.Invisible;
             dealersFourthCard.Visibility = ViewStates.Invisible;
             dealersFifthCard.Visibility = ViewStates.Invisible;
+
+            dealersFirstCard.SetDealerCardFaceDown();
+            dealersSecondCard.SetDealerCardFaceDown();
 
             playersThirdCard.Visibility = ViewStates.Invisible;
             playersFourthCard.Visibility = ViewStates.Invisible;
             playersFifthCard.Visibility = ViewStates.Invisible;
 
             PlayersHand.Add(Deck.RemoveTopCard());
-            DealerHand.Add(Deck.RemoveTopCard());
+            DealersHand.Add(Deck.RemoveTopCard());
             PlayersHand.Add(Deck.RemoveTopCard());
-            DealerHand.Add(Deck.RemoveTopCard());
+            DealersHand.Add(Deck.RemoveTopCard());
 
             dealersHandText.Text = "Dealers hand total: " + DealersHandTotal;
 
@@ -185,31 +186,52 @@ namespace BlackJack
                 switch (count)
                 {
                     case 1:
-                        dealersFirstCard.SetCardValues(DealerHand[count - 1]);
+                        dealersFirstCard.SetDealerCardFaceDown(false);
+                        dealersFirstCard.SetCardValues(DealersHand[count - 1]);
                         dealersFirstCard.Visibility = ViewStates.Visible;
                         count--;
                         break;
                     case 2:
-                        dealersSecondCard.SetCardValues(DealerHand[count - 1]);
+                        dealersSecondCard.SetDealerCardFaceDown(false);
+                        dealersSecondCard.SetCardValues(DealersHand[count - 1]);
                         dealersSecondCard.Visibility = ViewStates.Visible;
                         count--;
                         break;
                     case 3:
-                        dealersThirdCard.SetCardValues(DealerHand[count - 1]);
+                        dealersThirdCard.SetCardValues(DealersHand[count - 1]);
                         dealersThirdCard.Visibility = ViewStates.Visible;
                         count--;
                         break;
                     case 4:
-                        dealersFourthCard.SetCardValues(DealerHand[count - 1]);
+                        dealersFourthCard.SetCardValues(DealersHand[count - 1]);
                         dealersFourthCard.Visibility = ViewStates.Visible;
                         count--;
                         break;
                     case 5:
-                        dealersFifthCard.SetCardValues(DealerHand[count - 1]);
+                        dealersFifthCard.SetCardValues(DealersHand[count - 1]);
                         dealersFifthCard.Visibility = ViewStates.Visible;
                         count--;
                         break;
                 }
+            }
+        }
+
+        private async Task CheckIfPlayerHasFiveCardTrick()
+        {
+            if (PlayersHand.Count == 5 && PlayersHandTotal != -1)
+            {
+                playersHandText.Text = "Players hand total: Five cards under!";
+                PlayersHandTotal = 100;
+                await DealersTurn();
+            }
+        }
+
+        private void CheckIfDealerHasFiveCardTrick()
+        {
+            if (DealersHand.Count == 5 && DealersHandTotal != -1)
+            {
+                dealersHandText.Text = "Dealers hand total: Five cards under!";
+                DealersHandTotal = 100;
             }
         }
 
@@ -263,8 +285,8 @@ namespace BlackJack
             convoText.Text = "Dealers turn";
             await Task.Delay(1000);
 
-            PrintDealersHand(DealerHand);
-            DealersHandTotal = UpdateScore(DealerHand);
+            PrintDealersHand(DealersHand);
+            DealersHandTotal = UpdateScore(DealersHand);
             dealersHandText.Text = "Dealers hand total: " + DealersHandTotal;
 
             while (dealersTurn)
@@ -276,11 +298,12 @@ namespace BlackJack
                 else if (DealersHandTotal <= 16)
                 {
                     await Task.Delay(1000);
-                    DealerHand.Add(Deck.RemoveTopCard());
-                    PrintDealersHand(DealerHand);
-                    DealersHandTotal = UpdateScore(DealerHand);
+                    DealersHand.Add(Deck.RemoveTopCard());
+                    PrintDealersHand(DealersHand);
+                    DealersHandTotal = UpdateScore(DealersHand);
                     dealersHandText.Text = "Dealers hand total: " + DealersHandTotal;
                     await CheckIfBust();
+                    CheckIfDealerHasFiveCardTrick();
                 }
                 else
                 {
@@ -298,7 +321,7 @@ namespace BlackJack
             if (PlayersHandTotal > 21)
             {
                 PlayersHandTotal = -1;
-                playersHandText.Text = "Your hand total: Bust!";
+                playersHandText.Text = "Players hand total: Bust!";
                 buttonHit.Enabled = false;
                 buttonStick.Enabled = false;
                 await DealersTurn();
@@ -317,13 +340,13 @@ namespace BlackJack
             {
                 PlayerGameScore++;
                 playerGameScoreText.Text = "Your score: " + PlayerGameScore.ToString();
-                convoText.Text = "Player wins hand.";
+                convoText.Text = "Players hand wins.";
             }
             else if (PlayersHandTotal < DealersHandTotal)
             {
                 DealerGameScore++;
                 dealerGameScoreText.Text = "Dealer score: " + DealerGameScore.ToString();
-                convoText.Text = "Dealer wins hand.";
+                convoText.Text = "Dealers hand wins.";
             }
             else if (PlayersHandTotal == DealersHandTotal)
             {

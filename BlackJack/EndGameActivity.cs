@@ -20,16 +20,24 @@ namespace BlackJack
 
             SetContentView(Resource.Layout.EndGame);
 
+            Button buttonPlayAgain = FindViewById<Button>(Resource.Id.PlayAgain);
             Button buttonHome = FindViewById<Button>(Resource.Id.ButtonHome);
             winner = FindViewById<TextView>(Resource.Id.WinnerText);
 
             PlayerGameScore = Intent.Extras.GetInt("playerGameScore");
             DealerGameScore = Intent.Extras.GetInt("dealerGameScore");
 
-
+            buttonPlayAgain.Click += ButtonPlayAgain_Click;
             buttonHome.Click += ButtonHome_CLick;
 
             SetWinnerText();
+        }
+
+        private void ButtonPlayAgain_Click(object sender, EventArgs e)
+        {
+            Intent intent = new Intent(this, typeof(GameActivity));
+            StartActivity(intent);
+            Finish();
         }
 
         private void ButtonHome_CLick(object sender, EventArgs e)
