@@ -6,30 +6,38 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:gravity="center">
-    <TextView
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        android:text="Game Over"
-        android:layout_gravity="center"
-        android:layout_marginBottom="60dp"
-        android:textStyle="bold"
-        android:textColor="#DF2020"
-        android:textSize="40dp" />
-    <TextView
-        android:id="@+id/WinnerText"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        tools:text="Winner"
-        android:layout_gravity="center"
-        android:layout_marginBottom="60dp"
-        android:textStyle="bold"
-        android:textColor="#ffffff"
-        android:textSize="30dp" />
-    <Button
-        android:id="@+id/ButtonHome"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="@drawable/buttonclickedstate"
-        android:text="Home" />
+        android:gravity="center">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Game Over"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textColor="#DF2020"
+            android:textSize="40dp"
+            android:shadowColor="#ffffff"
+            android:shadowRadius="8" />
+        <TextView
+            android:id="@+id/WinnerText"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            tools:text="Winner"
+            android:layout_gravity="center"
+            android:layout_marginBottom="60dp"
+            android:layout_marginTop="60dp"
+            android:textStyle="bold"
+            android:textColor="#ffffff"
+            android:textSize="30dp" />
+        <Button
+            android:id="@+id/ButtonHome"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/buttonclickedstate"
+            android:text="Home" />
+    </LinearLayout>
 </LinearLayout>

@@ -11,6 +11,7 @@ namespace BlackJack
         TextView topLeftChar;
         TextView bottomRightChar;
         TextView centreSuitChar;
+        LinearLayout cardLayout;
 
         public CardView(Context context) :
             base(context)
@@ -37,6 +38,7 @@ namespace BlackJack
             topLeftChar = FindViewById<TextView>(Resource.Id.TopLeftChar);
             bottomRightChar = FindViewById<TextView>(Resource.Id.BottomRightChar);
             centreSuitChar = FindViewById<TextView>(Resource.Id.CentreSuitChar);
+            cardLayout = FindViewById<LinearLayout>(Resource.Id.LayoutCard);
         }
 
         public void SetCardValues(Card card)
@@ -44,6 +46,7 @@ namespace BlackJack
             topLeftChar.Text = GetCardValue(card);
             bottomRightChar.Text = GetCardValue(card);
             centreSuitChar.Text = GetcardSuit(card);
+            //cardLayout.SetBackgroundResource(Resource.Drawable.PlayingcardBack);
         }
 
         private string GetcardSuit(Card card)
