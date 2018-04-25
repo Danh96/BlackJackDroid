@@ -54,6 +54,7 @@
     <Compile Include="GameActivity.cs" />
     <Compile Include="CardView.cs" />
     <Compile Include="EndGameActivity.cs" />
+    <Compile Include="SplashScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -83,6 +84,8 @@
     <AndroidResource Include="Resources\drawable\Diamonds.png" />
     <AndroidResource Include="Resources\drawable\Hearts.png" />
     <AndroidResource Include="Resources\drawable\Spades.png" />
+    <AndroidResource Include="Resources\drawable\SplashScreen.xml" />
+    <AndroidResource Include="Resources\values\styles.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
