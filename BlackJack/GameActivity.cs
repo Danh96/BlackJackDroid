@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Media;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -15,6 +16,7 @@ namespace BlackJack
     [Activity(Label = "Game", Theme = "@android:style/Theme.Holo.NoActionBar.Fullscreen", ScreenOrientation = ScreenOrientation.Portrait)]
     public class GameActivity : Activity
     {
+        protected MediaPlayer player;
         private PlayingCardDeck Deck;
         private List<Card> PlayersHand = new List<Card>();
         private List<Card> DealersHand = new List<Card>();
@@ -75,9 +77,8 @@ namespace BlackJack
             buttonStick.Click += StickButton_Click;
             buttonHit.Click += HitButton_Click;
 
+            SetCardsToInvisible();
             SelectMatchPointsDialogPopUp();
-
-            GameStart();
         }
 
         private async void HitButton_Click(object sender, EventArgs e)
@@ -99,6 +100,21 @@ namespace BlackJack
             await DealersTurn();
         }
 
+        private void SetCardsToInvisible()
+        {
+            dealersFirstCard.Visibility = ViewStates.Invisible;
+            dealersSecondCard.Visibility = ViewStates.Invisible;
+            dealersThirdCard.Visibility = ViewStates.Invisible;
+            dealersFourthCard.Visibility = ViewStates.Invisible;
+            dealersFifthCard.Visibility = ViewStates.Invisible;
+
+            playersFirstCard.Visibility = ViewStates.Invisible;
+            playersSecondCard.Visibility = ViewStates.Invisible;
+            playersThirdCard.Visibility = ViewStates.Invisible;
+            playersFourthCard.Visibility = ViewStates.Invisible;
+            playersFifthCard.Visibility = ViewStates.Invisible;
+        }
+
         private void GameStart()
         {
             Deck = new PlayingCardDeck();
@@ -117,6 +133,8 @@ namespace BlackJack
             playerGameScoreText.Text = "Your score: " + PlayerGameScore.ToString();
             dealerGameScoreText.Text = "Dealer score: " + DealerGameScore.ToString();
 
+            dealersFirstCard.Visibility = ViewStates.Visible;
+            dealersSecondCard.Visibility = ViewStates.Visible;
             dealersThirdCard.Visibility = ViewStates.Invisible;
             dealersFourthCard.Visibility = ViewStates.Invisible;
             dealersFifthCard.Visibility = ViewStates.Invisible;
@@ -417,16 +435,34 @@ namespace BlackJack
         private void SetMatchPointsToTen(object sender, DialogClickEventArgs e)
         {
             MaxMatchPoint = 10;
+            GameStart();
         }
 
         private void SetMatchPointsToFive(object sender, DialogClickEventArgs e)
         {
             MaxMatchPoint = 5;
+            GameStart();
         }
 
         private void SetMatchPointsToThree(object sender, DialogClickEventArgs e)
         {
             MaxMatchPoint = 3;
+            GameStart();
+        }
+
+        private void StartPlayer(string filePath)
+        {
+            if (player == null)
+            {
+                player = new MediaPlayer();
+            }
+            else
+            {
+                player.Reset();
+                player.SetDataSource(filePath);
+                player.Prepare();
+                player.Start();
+            }
         }
     }
 }
