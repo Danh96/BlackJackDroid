@@ -16,7 +16,7 @@ namespace BlackJack
     [Activity(Label = "Game", Theme = "@android:style/Theme.Holo.NoActionBar.Fullscreen", ScreenOrientation = ScreenOrientation.Portrait, NoHistory = true)]
     public class GameActivity : Activity
     {
-        //TODO Fix memory leak issue causing sounds to run when activity isnt visable!
+        //FIXME Fix memory leak issue causing sounds to run when activity isnt visible!
 
         private MediaPlayer _player = new MediaPlayer();
         private PlayingCardDeck Deck;
