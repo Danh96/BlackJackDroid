@@ -10,7 +10,7 @@ namespace BlackJack
     {
         TextView topLeftChar;
         TextView bottomRightChar;
-        TextView centreSuitChar;
+        ImageView suitImage;
         LinearLayout cardLayout;
 
         public CardView(Context context) :
@@ -37,7 +37,7 @@ namespace BlackJack
 
             topLeftChar = FindViewById<TextView>(Resource.Id.TopLeftChar);
             bottomRightChar = FindViewById<TextView>(Resource.Id.BottomRightChar);
-            centreSuitChar = FindViewById<TextView>(Resource.Id.CentreSuitChar);
+            suitImage = FindViewById<ImageView>(Resource.Id.SuitImage);
             cardLayout = FindViewById<LinearLayout>(Resource.Id.LayoutCard);
         }
 
@@ -45,7 +45,7 @@ namespace BlackJack
         {
             topLeftChar.Text = GetCardValue(card);
             bottomRightChar.Text = GetCardValue(card);
-            centreSuitChar.Text = GetcardSuit(card);
+            suitImage.SetImageResource(GetcardSuit(card));
         }
 
         public void SetDealerCardFaceDown(bool faceDown = true)
@@ -55,7 +55,7 @@ namespace BlackJack
                 cardLayout.SetBackgroundResource(Resource.Drawable.CardBack);
                 topLeftChar.Text = string.Empty;
                 bottomRightChar.Text = string.Empty;
-                centreSuitChar.Text = string.Empty;
+                suitImage.SetImageResource(Android.Resource.Color.Transparent);
             }
             else
             {
@@ -63,30 +63,30 @@ namespace BlackJack
             }
         }
 
-        private string GetcardSuit(Card card)
+        private int GetcardSuit(Card card)
         {
-            char suitIcon;
+            int suitIconImage;
 
             switch (card.Suit)
             {
                 case CardSuit.Clubs:
-                    suitIcon = '\u2663';
+                    suitIconImage = Resource.Drawable.Clubs;
                     break;
                 case CardSuit.Spades:
-                    suitIcon = '\u2660';
+                    suitIconImage = Resource.Drawable.Spades;
                     break;
                 case CardSuit.Diamonds:
-                    suitIcon = '\u2666';
+                    suitIconImage = Resource.Drawable.Diamonds;
                     break;
                 case CardSuit.Hearts:
-                    suitIcon = '\u2665';
+                    suitIconImage = Resource.Drawable.Hearts;
                     break;
                 default:
-                    suitIcon = '?';
+                    suitIconImage = 0;
                     break;
             }
 
-            return suitIcon.ToString();
+            return suitIconImage;
         }
 
         public string GetCardValue(Card card)

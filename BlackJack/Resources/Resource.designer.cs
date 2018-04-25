@@ -108,9 +108,6 @@ namespace BlackJack
 			// aapt resource value: 0x7f06001a
 			public const int ButtonStick = 2131099674;
 			
-			// aapt resource value: 0x7f060002
-			public const int CentreSuitChar = 2131099650;
-			
 			// aapt resource value: 0x7f060011
 			public const int ConvoText = 2131099665;
 			
@@ -170,6 +167,9 @@ namespace BlackJack
 			
 			// aapt resource value: 0x7f060007
 			public const int ScoreBar = 2131099655;
+			
+			// aapt resource value: 0x7f060002
+			public const int SuitImage = 2131099650;
 			
 			// aapt resource value: 0x7f060001
 			public const int TopLeftChar = 2131099649;
