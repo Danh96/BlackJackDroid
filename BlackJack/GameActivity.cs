@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
@@ -13,10 +14,10 @@ using DeckOfCards;
 
 namespace BlackJack
 {
-    [Activity(Label = "Game", Theme = "@android:style/Theme.Holo.NoActionBar.Fullscreen", ScreenOrientation = ScreenOrientation.Portrait)]
+    [Activity(Label = "Game", Theme = "@android:style/Theme.Holo.NoActionBar.Fullscreen", ScreenOrientation = ScreenOrientation.Portrait, NoHistory = true)]
     public class GameActivity : Activity
     {
-        protected MediaPlayer player;
+        private MediaPlayer _player = new MediaPlayer();
         private PlayingCardDeck Deck;
         private List<Card> PlayersHand = new List<Card>();
         private List<Card> DealersHand = new List<Card>();
@@ -24,7 +25,7 @@ namespace BlackJack
         private int PlayersHandTotal;
         private int DealerGameScore;
         private int PlayerGameScore;
-        private int MaxMatchPoint = 3;
+        private int MaxMatchPoint;
 
         private TextView playerGameScoreText;
         private TextView dealerGameScoreText;
@@ -130,8 +131,8 @@ namespace BlackJack
             buttonHit.Enabled = true;
             buttonStick.Enabled = true;
 
-            playerGameScoreText.Text = "Your score: " + PlayerGameScore.ToString();
-            dealerGameScoreText.Text = "Dealer score: " + DealerGameScore.ToString();
+            playerGameScoreText.Text = "Players score: " + PlayerGameScore.ToString();
+            dealerGameScoreText.Text = "Dealers score: " + DealerGameScore.ToString();
 
             dealersFirstCard.Visibility = ViewStates.Visible;
             dealersSecondCard.Visibility = ViewStates.Visible;
@@ -307,7 +308,7 @@ namespace BlackJack
 
             await Task.Delay(1000);
             convoText.Text = "Dealers turn";
-            await Task.Delay(1000);
+            await Task.Delay(2000);
 
             PrintDealersHand(DealersHand);
             DealersHandTotal = UpdateScore(DealersHand);
@@ -363,13 +364,13 @@ namespace BlackJack
             if (PlayersHandTotal > DealersHandTotal)
             {
                 PlayerGameScore++;
-                playerGameScoreText.Text = "Your score: " + PlayerGameScore.ToString();
+                playerGameScoreText.Text = "Players score: " + PlayerGameScore.ToString();
                 convoText.Text = "Players hand wins.";
             }
             else if (PlayersHandTotal < DealersHandTotal)
             {
                 DealerGameScore++;
-                dealerGameScoreText.Text = "Dealer score: " + DealerGameScore.ToString();
+                dealerGameScoreText.Text = "Dealers score: " + DealerGameScore.ToString();
                 convoText.Text = "Dealers hand wins.";
             }
             else if (PlayersHandTotal == DealersHandTotal)
@@ -407,9 +408,9 @@ namespace BlackJack
             MatchPointAlert.SetCancelable(false);
             MatchPointAlert.SetMessage("Please select the number of points you want to play for.");
             MatchPointAlert.SetTitle("Match length selector");
-            MatchPointAlert.SetButton("10", SetMatchPointsToTen);
-            MatchPointAlert.SetButton2("3", SetMatchPointsToThree);
-            MatchPointAlert.SetButton3("5", SetMatchPointsToFive);
+            MatchPointAlert.SetButton("10 points", SetMatchPointsToTen);
+            MatchPointAlert.SetButton2("3 points", SetMatchPointsToThree);
+            MatchPointAlert.SetButton3("5 points", SetMatchPointsToFive);
             MatchPointAlert.Show();
 
             StyleAlertDialog(MatchPointAlert);
@@ -458,9 +459,13 @@ namespace BlackJack
 
         private void StartShufflePlayer()
         {
-            MediaPlayer _player = new MediaPlayer();
             _player = MediaPlayer.Create(this, Resource.Raw.ShuffleSound);
             _player.Start();
+        }
+
+        public override void OnBackPressed()
+        {
+            Finish();
         }
     }
 }

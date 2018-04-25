@@ -99,89 +99,92 @@ namespace BlackJack
 			// aapt resource value: 0x7f080003
 			public const int BottomRightChar = 2131230723;
 			
+			// aapt resource value: 0x7f08001d
+			public const int ButtonGame = 2131230749;
+			
 			// aapt resource value: 0x7f08001c
-			public const int ButtonGame = 2131230748;
+			public const int ButtonHit = 2131230748;
+			
+			// aapt resource value: 0x7f080007
+			public const int ButtonHome = 2131230727;
 			
 			// aapt resource value: 0x7f08001b
-			public const int ButtonHit = 2131230747;
+			public const int ButtonStick = 2131230747;
 			
-			// aapt resource value: 0x7f080006
-			public const int ButtonHome = 2131230726;
-			
-			// aapt resource value: 0x7f08001a
-			public const int ButtonStick = 2131230746;
-			
-			// aapt resource value: 0x7f080011
-			public const int ConvoText = 2131230737;
-			
-			// aapt resource value: 0x7f080009
-			public const int DealerGameScore = 2131230729;
-			
-			// aapt resource value: 0x7f080010
-			public const int DealersFifthCard = 2131230736;
-			
-			// aapt resource value: 0x7f08000c
-			public const int DealersFirstCard = 2131230732;
-			
-			// aapt resource value: 0x7f08000f
-			public const int DealersFourthCard = 2131230735;
-			
-			// aapt resource value: 0x7f08000b
-			public const int DealersHand = 2131230731;
+			// aapt resource value: 0x7f080012
+			public const int ConvoText = 2131230738;
 			
 			// aapt resource value: 0x7f08000a
-			public const int DealersHandText = 2131230730;
+			public const int DealerGameScore = 2131230730;
+			
+			// aapt resource value: 0x7f080011
+			public const int DealersFifthCard = 2131230737;
 			
 			// aapt resource value: 0x7f08000d
-			public const int DealersSecondCard = 2131230733;
+			public const int DealersFirstCard = 2131230733;
+			
+			// aapt resource value: 0x7f080010
+			public const int DealersFourthCard = 2131230736;
+			
+			// aapt resource value: 0x7f08000c
+			public const int DealersHand = 2131230732;
+			
+			// aapt resource value: 0x7f08000b
+			public const int DealersHandText = 2131230731;
 			
 			// aapt resource value: 0x7f08000e
-			public const int DealersThirdCard = 2131230734;
+			public const int DealersSecondCard = 2131230734;
+			
+			// aapt resource value: 0x7f08000f
+			public const int DealersThirdCard = 2131230735;
 			
 			// aapt resource value: 0x7f080000
 			public const int LayoutCard = 2131230720;
 			
-			// aapt resource value: 0x7f080005
-			public const int PlayAgain = 2131230725;
+			// aapt resource value: 0x7f080006
+			public const int PlayAgain = 2131230726;
 			
-			// aapt resource value: 0x7f080008
-			public const int PlayerGameScore = 2131230728;
+			// aapt resource value: 0x7f080009
+			public const int PlayerGameScore = 2131230729;
 			
-			// aapt resource value: 0x7f080018
-			public const int PlayersFifthCard = 2131230744;
-			
-			// aapt resource value: 0x7f080014
-			public const int PlayersFirstCard = 2131230740;
-			
-			// aapt resource value: 0x7f080017
-			public const int PlayersFourthCard = 2131230743;
-			
-			// aapt resource value: 0x7f080013
-			public const int PlayersHand = 2131230739;
-			
-			// aapt resource value: 0x7f080012
-			public const int PlayersHandText = 2131230738;
+			// aapt resource value: 0x7f080019
+			public const int PlayersFifthCard = 2131230745;
 			
 			// aapt resource value: 0x7f080015
-			public const int PlayersSecondCard = 2131230741;
+			public const int PlayersFirstCard = 2131230741;
+			
+			// aapt resource value: 0x7f080018
+			public const int PlayersFourthCard = 2131230744;
+			
+			// aapt resource value: 0x7f080014
+			public const int PlayersHand = 2131230740;
+			
+			// aapt resource value: 0x7f080013
+			public const int PlayersHandText = 2131230739;
 			
 			// aapt resource value: 0x7f080016
-			public const int PlayersThirdCard = 2131230742;
+			public const int PlayersSecondCard = 2131230742;
 			
-			// aapt resource value: 0x7f080007
-			public const int ScoreBar = 2131230727;
+			// aapt resource value: 0x7f080017
+			public const int PlayersThirdCard = 2131230743;
+			
+			// aapt resource value: 0x7f080008
+			public const int ScoreBar = 2131230728;
 			
 			// aapt resource value: 0x7f080002
 			public const int SuitImage = 2131230722;
 			
+			// aapt resource value: 0x7f080004
+			public const int TextGamePoints = 2131230724;
+			
 			// aapt resource value: 0x7f080001
 			public const int TopLeftChar = 2131230721;
 			
-			// aapt resource value: 0x7f080004
-			public const int WinnerText = 2131230724;
+			// aapt resource value: 0x7f080005
+			public const int WinnerText = 2131230725;
 			
-			// aapt resource value: 0x7f080019
-			public const int bottom_panel = 2131230745;
+			// aapt resource value: 0x7f08001a
+			public const int bottom_panel = 2131230746;
 			
 			static Id()
 			{

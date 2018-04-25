@@ -13,6 +13,7 @@ namespace BlackJack
         private int PlayerGameScore;
         private int DealerGameScore;
         private TextView winner;
+        private TextView textGamePoints;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -23,6 +24,7 @@ namespace BlackJack
             Button buttonPlayAgain = FindViewById<Button>(Resource.Id.PlayAgain);
             Button buttonHome = FindViewById<Button>(Resource.Id.ButtonHome);
             winner = FindViewById<TextView>(Resource.Id.WinnerText);
+            textGamePoints = FindViewById<TextView>(Resource.Id.TextGamePoints);
 
             PlayerGameScore = Intent.Extras.GetInt("playerGameScore");
             DealerGameScore = Intent.Extras.GetInt("dealerGameScore");
@@ -50,6 +52,8 @@ namespace BlackJack
 
         private void SetWinnerText()
         {
+            textGamePoints.Text = $"Players score: {PlayerGameScore.ToString()}     Dealers score: {DealerGameScore.ToString()}";
+
             if (PlayerGameScore > DealerGameScore)
             {
                 winner.Text = "Player wins!";

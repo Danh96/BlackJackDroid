@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="#ffffff"
-            tools:text="Your Score: 0" />
+            tools:text="Players score: 0" />
         <TextView
             android:id="@+id/DealerGameScore"
             android:gravity="center"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="#ffffff"
-            tools:text="Dealer Score: 0" />
+            tools:text="Dealers score: 0" />
     </LinearLayout>
     <LinearLayout
         android:layout_below="@id/ScoreBar"

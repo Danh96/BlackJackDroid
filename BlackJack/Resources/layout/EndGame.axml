@@ -12,15 +12,13 @@
         android:layout_height="wrap_content"
         android:gravity="center">
         <TextView
+            android:id="@+id/TextGamePoints"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
-            android:text="Game Over"
+            tools:text="Points"
             android:layout_gravity="center"
-            android:textStyle="bold"
-            android:textColor="#DF2020"
-            android:textSize="40dp"
-            android:shadowColor="#ffffff"
-            android:shadowRadius="8" />
+            android:textColor="#FFFFFF"
+            android:textSize="16dp" />
         <TextView
             android:id="@+id/WinnerText"
             android:layout_height="wrap_content"
@@ -46,6 +44,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/buttonclickedstate"
-            android:text="Home" />
+            android:text="Main menu" />
     </LinearLayout>
 </LinearLayout>
