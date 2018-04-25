@@ -305,6 +305,7 @@ namespace BlackJack
         {
             bool dealersTurn = true;
 
+            await Task.Delay(1000);
             convoText.Text = "Dealers turn";
             await Task.Delay(1000);
 
@@ -377,7 +378,7 @@ namespace BlackJack
                 convoText.Text = "Draw, points go to dealer.";
             }
 
-            await Task.Delay(1000);
+            await Task.Delay(2000);
             await CheckIfGameContinues();
         }
 
@@ -393,8 +394,9 @@ namespace BlackJack
             }
             else
             {
-                await Task.Delay(1000);
                 convoText.Text = "Next Round!";
+                StartShufflePlayer();
+                await Task.Delay(1000);
                 GameStart();
             }
         }
@@ -402,6 +404,7 @@ namespace BlackJack
         private void SelectMatchPointsDialogPopUp()
         {
             var MatchPointAlert = (new AlertDialog.Builder(this)).Create();
+            MatchPointAlert.SetCancelable(false);
             MatchPointAlert.SetMessage("Please select the number of points you want to play for.");
             MatchPointAlert.SetTitle("Match length selector");
             MatchPointAlert.SetButton("10", SetMatchPointsToTen);
@@ -435,34 +438,29 @@ namespace BlackJack
         private void SetMatchPointsToTen(object sender, DialogClickEventArgs e)
         {
             MaxMatchPoint = 10;
+            StartShufflePlayer();
             GameStart();
         }
 
         private void SetMatchPointsToFive(object sender, DialogClickEventArgs e)
         {
             MaxMatchPoint = 5;
+            StartShufflePlayer();
             GameStart();
         }
 
         private void SetMatchPointsToThree(object sender, DialogClickEventArgs e)
         {
             MaxMatchPoint = 3;
+            StartShufflePlayer();
             GameStart();
         }
 
-        private void StartPlayer(string filePath)
+        private void StartShufflePlayer()
         {
-            if (player == null)
-            {
-                player = new MediaPlayer();
-            }
-            else
-            {
-                player.Reset();
-                player.SetDataSource(filePath);
-                player.Prepare();
-                player.Start();
-            }
+            MediaPlayer _player = new MediaPlayer();
+            _player = MediaPlayer.Create(this, Resource.Raw.ShuffleSound);
+            _player.Start();
         }
     }
 }
