@@ -66,7 +66,19 @@ namespace BlackJack
 			public const int CardBackground = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int Logo = 2130837511;
+			public const int Clubs = 2130837511;
+			
+			// aapt resource value: 0x7f020008
+			public const int Diamonds = 2130837512;
+			
+			// aapt resource value: 0x7f020009
+			public const int Hearts = 2130837513;
+			
+			// aapt resource value: 0x7f02000a
+			public const int Logo = 2130837514;
+			
+			// aapt resource value: 0x7f02000b
+			public const int Spades = 2130837515;
 			
 			static Drawable()
 			{

@@ -79,6 +79,10 @@
     <AndroidResource Include="Resources\layout\EndGame.axml" />
     <AndroidResource Include="Resources\drawable\AppLogo.png" />
     <AndroidResource Include="Resources\drawable\CardBack.png" />
+    <AndroidResource Include="Resources\drawable\Clubs.png" />
+    <AndroidResource Include="Resources\drawable\Diamonds.png" />
+    <AndroidResource Include="Resources\drawable\Hearts.png" />
+    <AndroidResource Include="Resources\drawable\Spades.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

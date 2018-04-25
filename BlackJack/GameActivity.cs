@@ -383,7 +383,7 @@ namespace BlackJack
 
         private void SelectMatchPointsDialogPopUp()
         {
-            var MatchPointAlert = (new AlertDialog.Builder(this)).Create();
+            var MatchPointAlert = (new AlertDialog.Builder(this, AlertDialog.ThemeDeviceDefaultDark)).Create();
             MatchPointAlert.SetMessage("Please select the number of points to play for.");
             MatchPointAlert.SetTitle("Match length selector");
             MatchPointAlert.SetButton("10", SetMatchPointsToTen);
