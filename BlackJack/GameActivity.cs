@@ -18,10 +18,13 @@ namespace BlackJack
     public class GameActivity : Activity
     {
         private CancellationTokenSource CancellationToken = new CancellationTokenSource();
+
         private MediaPlayer _player = new MediaPlayer();
+
         private PlayingCardDeck Deck;
         private List<Card> PlayersHand = new List<Card>();
         private List<Card> DealersHand = new List<Card>();
+
         private int DealersHandTotal;
         private int PlayersHandTotal;
         private int DealerGameScore;
@@ -42,7 +45,6 @@ namespace BlackJack
         private CardView dealersThirdCard;
         private CardView dealersFourthCard;
         private CardView dealersFifthCard;
-
         private CardView playersFirstCard;
         private CardView playersSecondCard;
         private CardView playersThirdCard;
@@ -66,7 +68,6 @@ namespace BlackJack
             dealersThirdCard = FindViewById<CardView>(Resource.Id.DealersThirdCard);
             dealersFourthCard = FindViewById<CardView>(Resource.Id.DealersFourthCard);
             dealersFifthCard = FindViewById<CardView>(Resource.Id.DealersFifthCard);
-
             playersFirstCard = FindViewById<CardView>(Resource.Id.PlayersFirstCard);
             playersSecondCard = FindViewById<CardView>(Resource.Id.PlayersSecondCard);
             playersThirdCard = FindViewById<CardView>(Resource.Id.PlayersThirdCard);
@@ -115,7 +116,6 @@ namespace BlackJack
             dealersThirdCard.Visibility = ViewStates.Invisible;
             dealersFourthCard.Visibility = ViewStates.Invisible;
             dealersFifthCard.Visibility = ViewStates.Invisible;
-
             playersFirstCard.Visibility = ViewStates.Invisible;
             playersSecondCard.Visibility = ViewStates.Invisible;
             playersThirdCard.Visibility = ViewStates.Invisible;
