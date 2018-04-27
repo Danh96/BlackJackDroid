@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Android.App;
 using Android.Content;
@@ -16,8 +17,7 @@ namespace BlackJack
     [Activity(Label = "Game", Theme = "@android:style/Theme.Holo.NoActionBar.Fullscreen", ScreenOrientation = ScreenOrientation.Portrait, NoHistory = true)]
     public class GameActivity : Activity
     {
-        //FIXME Fix memory leak issue causing sounds to run when activity isnt visible!
-
+        private CancellationTokenSource CancellationToken = new CancellationTokenSource();
         private MediaPlayer _player = new MediaPlayer();
         private PlayingCardDeck Deck;
         private List<Card> PlayersHand = new List<Card>();
@@ -83,6 +83,12 @@ namespace BlackJack
             SelectMatchPointsDialogPopUp();
         }
 
+        protected override void OnPause()
+        {
+            CancellationToken.Cancel();
+            base.OnPause();
+        }
+
         private async void HitButton_Click(object sender, EventArgs e)
         {
             PlayersHand.Add(Deck.RemoveTopCard());
@@ -90,8 +96,8 @@ namespace BlackJack
             PlayersHandTotal = UpdateScore(PlayersHand);
             playersHandText.Text = "Players hand total: " + PlayersHandTotal.ToString();
 
-            await CheckIfBust();
-            await CheckIfPlayerHasFiveCardTrick();
+            await CheckIfBust(CancellationToken.Token);
+            await CheckIfPlayerHasFiveCardTrick(CancellationToken.Token);
         }
 
         private async void StickButton_Click(object sender, EventArgs e)
@@ -99,7 +105,7 @@ namespace BlackJack
             buttonHit.Enabled = false;
             buttonStick.Enabled = false;
 
-            await DealersTurn();
+            await DealersTurn(CancellationToken.Token);
         }
 
         private void SetCardsToInvisible()
@@ -239,15 +245,21 @@ namespace BlackJack
             }
         }
 
-        private async Task CheckIfPlayerHasFiveCardTrick()
-        {
-            if (PlayersHand.Count == 5 && PlayersHandTotal != -1)
+        private async Task CheckIfPlayerHasFiveCardTrick(CancellationToken ct)
+        { try
             {
-                buttonHit.Enabled = false;
-                buttonStick.Enabled = false;
-                playersHandText.Text = "Players hand total: Five cards under!";
-                PlayersHandTotal = 100;
-                await DealersTurn();
+                if (PlayersHand.Count == 5 && PlayersHandTotal != -1 && !ct.IsCancellationRequested)
+                {
+                    buttonHit.Enabled = false;
+                    buttonStick.Enabled = false;
+                    playersHandText.Text = "Players hand total: Five cards under!";
+                    PlayersHandTotal = 100;
+                    await DealersTurn(ct);
+                }
+            }
+            catch (System.OperationCanceledException ex)
+            {
+                Console.WriteLine(ex);
             }
         }
 
@@ -303,103 +315,142 @@ namespace BlackJack
             return HandTotal;
         }
 
-        private async Task DealersTurn()
+        private async Task DealersTurn(CancellationToken ct)
         {
-            bool dealersTurn = true;
-
-            await Task.Delay(1000);
-            convoText.Text = "Dealers turn";
-            await Task.Delay(2000);
-
-            PrintDealersHand(DealersHand);
-            DealersHandTotal = UpdateScore(DealersHand);
-            dealersHandText.Text = "Dealers hand total: " + DealersHandTotal;
-
-            while (dealersTurn)
+            try
             {
-                if (DealersHandTotal > PlayersHandTotal || DealersHandTotal == -1)
+                if (!ct.IsCancellationRequested)
                 {
-                    dealersTurn = false;
-                }
-                else if (DealersHandTotal <= 16)
-                {
-                    await Task.Delay(1000);
-                    DealersHand.Add(Deck.RemoveTopCard());
+                    bool dealersTurn = true;
+
+                    await Task.Delay(1000, ct);
+                    convoText.Text = "Dealers turn";
+                    await Task.Delay(2000, ct);
+
                     PrintDealersHand(DealersHand);
                     DealersHandTotal = UpdateScore(DealersHand);
                     dealersHandText.Text = "Dealers hand total: " + DealersHandTotal;
-                    await CheckIfBust();
-                    CheckIfDealerHasFiveCardTrick();
+
+                    while (dealersTurn)
+                    {
+                        if (DealersHandTotal > PlayersHandTotal || DealersHandTotal == -1)
+                        {
+                            dealersTurn = false;
+                        }
+                        else if (DealersHandTotal <= 16)
+                        {
+                            await Task.Delay(1000);
+                            DealersHand.Add(Deck.RemoveTopCard());
+                            PrintDealersHand(DealersHand);
+                            DealersHandTotal = UpdateScore(DealersHand);
+                            dealersHandText.Text = "Dealers hand total: " + DealersHandTotal;
+                            await CheckIfBust(ct);
+                            CheckIfDealerHasFiveCardTrick();
+                        }
+                        else
+                        {
+                            dealersTurn = false;
+                        }
+
+                        await Task.Delay(1000, ct);
+                    }
+
+                    await UpdateGameScore(ct);
                 }
-                else
+            }
+            catch (System.OperationCanceledException ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        private async Task CheckIfBust(CancellationToken ct)
+        {
+            try
+            {
+                if (!ct.IsCancellationRequested)
                 {
-                    dealersTurn = false;
+                    if (PlayersHandTotal > 21)
+                    {
+                        PlayersHandTotal = -1;
+                        playersHandText.Text = "Players hand total: Bust!";
+                        buttonHit.Enabled = false;
+                        buttonStick.Enabled = false;
+                        await DealersTurn(ct);
+                    }
+
+                    if (DealersHandTotal > 21)
+                    {
+                        DealersHandTotal = -1;
+                        dealersHandText.Text = "Dealers hand total: Bust!";
+                    }
                 }
-
-                await Task.Delay(1000);
             }
-
-            await UpdateGameScore();
-        }
-
-        private async Task CheckIfBust()
-        {
-            if (PlayersHandTotal > 21)
+            catch (System.OperationCanceledException ex)
             {
-                PlayersHandTotal = -1;
-                playersHandText.Text = "Players hand total: Bust!";
-                buttonHit.Enabled = false;
-                buttonStick.Enabled = false;
-                await DealersTurn();
-            }
-
-            if (DealersHandTotal > 21)
-            {
-                DealersHandTotal = -1;
-                dealersHandText.Text = "Dealers hand total: Bust!";
+                Console.WriteLine(ex);
             }
         }
 
-        private async Task UpdateGameScore()
+        private async Task UpdateGameScore(CancellationToken ct)
         {
-            if (PlayersHandTotal > DealersHandTotal)
-            {
-                PlayerGameScore++;
-                playerGameScoreText.Text = "Players score: " + PlayerGameScore.ToString();
-                convoText.Text = "Players hand wins.";
-            }
-            else if (PlayersHandTotal < DealersHandTotal)
-            {
-                DealerGameScore++;
-                dealerGameScoreText.Text = "Dealers score: " + DealerGameScore.ToString();
-                convoText.Text = "Dealers hand wins.";
-            }
-            else if (PlayersHandTotal == DealersHandTotal)
-            {
-                DealerGameScore++;
-                convoText.Text = "Draw, points go to dealer.";
-            }
+            try {
+                if (!ct.IsCancellationRequested)
+                {
+                    if (PlayersHandTotal > DealersHandTotal)
+                    {
+                        PlayerGameScore++;
+                        playerGameScoreText.Text = "Players score: " + PlayerGameScore.ToString();
+                        convoText.Text = "Players hand wins.";
+                    }
+                    else if (PlayersHandTotal < DealersHandTotal)
+                    {
+                        DealerGameScore++;
+                        dealerGameScoreText.Text = "Dealers score: " + DealerGameScore.ToString();
+                        convoText.Text = "Dealers hand wins.";
+                    }
+                    else if (PlayersHandTotal == DealersHandTotal)
+                    {
+                        DealerGameScore++;
+                        convoText.Text = "Draw, points go to dealer.";
+                    }
 
-            await Task.Delay(2000);
-            await CheckIfGameContinues();
+                    await Task.Delay(2000, ct);
+                    await CheckIfGameContinues(ct);
+                }
+            }
+            catch (System.OperationCanceledException ex)
+            {
+                Console.WriteLine(ex);
+            }
         }
 
-        private async Task CheckIfGameContinues()
+        private async Task CheckIfGameContinues(CancellationToken ct)
         {
-            if (PlayerGameScore == MaxMatchPoint || DealerGameScore == MaxMatchPoint)
+            try
             {
-                Intent intent = new Intent(this, typeof(EndGameActivity));
-                intent.PutExtra("playerGameScore", PlayerGameScore);
-                intent.PutExtra("dealerGameScore", DealerGameScore);
-                StartActivity(intent);
-                Finish();
+                if (!ct.IsCancellationRequested)
+                {
+                    if (PlayerGameScore == MaxMatchPoint || DealerGameScore == MaxMatchPoint)
+                    {
+                        Intent intent = new Intent(this, typeof(EndGameActivity));
+                        intent.PutExtra("playerGameScore", PlayerGameScore);
+                        intent.PutExtra("dealerGameScore", DealerGameScore);
+                        StartActivity(intent);
+                        Finish();
+                    }
+                    else
+                    {
+                        convoText.Text = "Next Round!";
+                        StartShufflePlayer();
+                        await Task.Delay(1000, ct);
+                        GameStart();
+                    }
+                }
             }
-            else
+            catch (System.OperationCanceledException ex)
             {
-                convoText.Text = "Next Round!";
-                StartShufflePlayer();
-                await Task.Delay(1000);
-                GameStart();
+                Console.WriteLine(ex);
             }
         }
 
@@ -431,7 +482,7 @@ namespace BlackJack
                 var titleDivider = dialog.Window.DecorView.FindViewById(titleDividerId);
                 titleDivider.SetBackgroundColor(Android.Graphics.Color.Red);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex);
             }
@@ -462,11 +513,6 @@ namespace BlackJack
         {
             _player = MediaPlayer.Create(this, Resource.Raw.ShuffleSound);
             _player.Start();
-        }
-
-        public override void OnBackPressed()
-        {
-            Finish();
         }
     }
 }
