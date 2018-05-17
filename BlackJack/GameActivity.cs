@@ -14,10 +14,10 @@ using DeckOfCards;
 
 namespace BlackJack
 {
-    [Activity(Label = "Game", Theme = "@android:style/Theme.Holo.NoActionBar.Fullscreen", ScreenOrientation = ScreenOrientation.Portrait, NoHistory = true)]
+    [Activity(Label = "Game", Theme = "@android:style/Theme.Holo.NoActionBar.Fullscreen", ScreenOrientation = ScreenOrientation.Portrait)]
     public class GameActivity : Activity
     {
-        private CancellationTokenSource CancellationToken = new CancellationTokenSource();
+        private CancellationTokenSource CancellationToken;
 
         private MediaPlayer _player = new MediaPlayer();
 
@@ -55,7 +55,7 @@ namespace BlackJack
         {
             base.OnCreate(savedInstanceState);
 
-            SetContentView(Resource.Layout.Game);
+			SetContentView(Resource.Layout.Game);
 
             playerGameScoreText = FindViewById<TextView>(Resource.Id.PlayerGameScore);
             dealerGameScoreText = FindViewById<TextView>(Resource.Id.DealerGameScore);
@@ -80,8 +80,7 @@ namespace BlackJack
             buttonStick.Click += StickButton_Click;
             buttonHit.Click += HitButton_Click;
 
-            SetCardsToInvisible();
-            SelectMatchPointsDialogPopUp();
+            CancellationToken = new CancellationTokenSource();
         }
 
         protected override void OnPause()
@@ -89,6 +88,26 @@ namespace BlackJack
             CancellationToken.Cancel();
             base.OnPause();
         }
+
+        protected override void OnResume()
+        {
+            CancellationToken = new CancellationTokenSource();
+            SetCardsToInvisible();
+			ResetGame();
+            SelectMatchPointsDialogPopUp();
+            base.OnResume();
+        }
+
+        private void ResetGame()
+		{
+			SetCardsToInvisible();
+            dealersHandText.Text = string.Empty;
+            playersHandText.Text = string.Empty;
+            DealerGameScore = 0;
+            PlayerGameScore = 0;
+			dealerGameScoreText.Text = "Dealers score: " + DealerGameScore.ToString();
+			playerGameScoreText.Text = "Players score: " + PlayerGameScore.ToString();
+		}
 
         private async void HitButton_Click(object sender, EventArgs e)
         {
@@ -458,8 +477,8 @@ namespace BlackJack
         {
             var MatchPointAlert = (new AlertDialog.Builder(this)).Create();
             MatchPointAlert.SetCancelable(false);
-            MatchPointAlert.SetMessage("Please select the number of points you want to play for.");
-            MatchPointAlert.SetTitle("Match length selector");
+            MatchPointAlert.SetMessage("Please select the number of points you want to play to.");
+            MatchPointAlert.SetTitle("New Game");
             MatchPointAlert.SetButton("10 points", SetMatchPointsToTen);
             MatchPointAlert.SetButton2("3 points", SetMatchPointsToThree);
             MatchPointAlert.SetButton3("5 points", SetMatchPointsToFive);
