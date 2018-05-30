@@ -1,8 +1,8 @@
 ﻿<Properties StartupConfiguration="{51CC2C90-1B11-4724-B0F4-18D852E06FDC}|Default">
-  <MonoDevelop.Ide.ItemProperties.BlackJack AndroidDesignerPreferredDevice="Nexus 5" PreferredExecutionTarget="Android.ce12160c4016803501" />
+  <MonoDevelop.Ide.ItemProperties.BlackJack AndroidDesignerPreferredDevice="Nexus 5" PreferredExecutionTarget="Android.Nexus_5X_API_25" />
   <MonoDevelop.Ide.Workbench ActiveDocument="BlackJack/GameActivity.cs">
     <Files>
-      <File FileName="BlackJack/GameActivity.cs" Line="488" Column="10" />
+      <File FileName="BlackJack/GameActivity.cs" Line="112" Column="36" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
