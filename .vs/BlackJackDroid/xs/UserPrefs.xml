@@ -1,7 +1,7 @@
 ﻿<Properties StartupConfiguration="{51CC2C90-1B11-4724-B0F4-18D852E06FDC}|Default">
-  <MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workbench ActiveDocument="BlackJack/GameActivity.cs">
     <Files>
-      <File FileName="BlackJack/GameActivity.cs" Line="97" Column="44" />
+      <File FileName="BlackJack/GameActivity.cs" Line="412" Column="10" />
       <File FileName="BlackJack/CardView.cs" Line="41" Column="77" />
       <File FileName="BlackJack/EndGameActivity.cs" Line="51" Column="10" />
     </Files>
@@ -11,6 +11,6 @@
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.BlackJackDroid AndroidDesignerPreferredDevice="Nexus 5" PreferredExecutionTarget="Android.Android_Accelerated_Nougat" />
+  <MonoDevelop.Ide.ItemProperties.BlackJackDroid AndroidDesignerPreferredDevice="Nexus 5" PreferredExecutionTarget="Android.60224613" />
   <MultiItemStartupConfigurations />
 </Properties>
